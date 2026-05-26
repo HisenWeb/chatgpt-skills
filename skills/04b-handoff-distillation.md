@@ -1,9 +1,9 @@
 ---
 name: 中转窗口去毒蒸馏与 Handoff
-version: 0.1.1
+version: 0.1.2
 status: active
-last_updated: 2026-05-26
-scope: 中转窗口 / 完整聊天记录蒸馏 / 上下文去毒 / handoff-current.md / todolist.md 自动识别与同步
+last_updated: 2026-05-27
+scope: 中转窗口 / 完整聊天记录蒸馏 / 上下文去毒 / handoff-current.md / 已启用 todolist.md 的识别与同步
 ---
 
 # ChatGPT 专属 Skill：中转窗口去毒蒸馏与 Handoff
@@ -57,7 +57,7 @@ scope: 中转窗口 / 完整聊天记录蒸馏 / 上下文去毒 / handoff-curre
 3. 剔除污染内容；
 4. 合并用户红线；
 5. 生成新的 `handoff-current.md`；
-6. 如果旧任务已经启用 `todolist.md`，同步输出更新后的 `todolist.md`；
+6. 如果旧任务已经启用 `todolist.md`，按 `04a-goal-todolist.md` 同步输出更新后的 `todolist.md`；
 7. 给出新窗口启动提示。
 
 中转蒸馏 handoff 的目标是：
@@ -98,7 +98,7 @@ scope: 中转窗口 / 完整聊天记录蒸馏 / 上下文去毒 / handoff-curre
 
 处理规则：
 
-- 如果检测到旧任务启用了 TodoList，且用户提供了 `todolist.md`，必须同步输出更新后的 `todolist.md`。
+- 如果检测到旧任务启用了 TodoList，且用户提供了 `todolist.md`，必须按 `04a-goal-todolist.md` 同步输出更新后的 `todolist.md`。
 - 如果检测到旧任务启用了 TodoList，但用户未提供 `todolist.md`，必须在 handoff 的“证据缺口 / 待确认”中记录，并提醒用户补充。
 - 不允许只根据旧聊天中的零散 Todo 片段重建为确定事实；缺少原始 `todolist.md` 时，只能写成待确认。
 - 如果用户明确说“不需要 TodoList”或“本次只要 handoff”，则按用户当前指令执行，但必须记录 TodoList 未同步的原因。
@@ -156,15 +156,19 @@ scope: 中转窗口 / 完整聊天记录蒸馏 / 上下文去毒 / handoff-curre
 
 ### 6. TodoList 同步规则
 
-如果用户提供旧 `todolist.md`，中转蒸馏必须按以下规则处理：
+如果用户提供旧 `todolist.md`，中转蒸馏必须按 `04a-goal-todolist.md` 处理。
+
+本 Skill 只补充中转去毒场景的规则：
 
 - 保留最终目标和当前阶段目标，除非用户最新明确修改；
-- 剔除旧窗口中把支撑设施当主线的漂移项；
-- doctor、README、SKILL_INDEX、模板、脚本等内容默认只能作为支撑设施 / 验收 gate；
+- 旧窗口 AI 计划不能自动继承为 TodoList 主线；
+- 旧窗口里把支撑设施、工具链维护、验证脚本、配置整理、索引、模板、检查命令等当成主线的漂移项，必须降级为支撑设施、验收 gate、废弃项或待确认项；
+- 支撑设施只有在用户明确说“当前阶段就是维护这些设施”时，才可成为主线；
 - 已完成项只有在用户确认或证据明确时才标记完成；
 - 新增方向默认进入“待确认 / 候选项”，除非用户明确确认；
-- 下一步原子任务必须从当前 P0 或当前阶段目标拆出；
-- 不把旧窗口 AI 的计划自动继承为 TodoList 主线。
+- 下一步原子任务必须从当前 P0 或当前阶段目标拆出。
+
+如果最终目标、当前阶段目标或 P0 在旧材料中发生漂移或冲突，不得直接生成修正版 TodoList；必须按 `04a-goal-todolist.md` 输出审核卡，除非用户明确要求直接生成且材料中三项锚点可信。
 
 ### 7. 原子级下一步
 
@@ -260,6 +264,7 @@ scope: 中转窗口 / 完整聊天记录蒸馏 / 上下文去毒 / handoff-curre
 - 当前主线；
 - 当前阶段；
 - 下一步原子任务；
+- TodoList 语义以 `04a-goal-todolist.md` 为准；
 - 新窗口必须同时读取 `handoff-current.md` 与 `todolist.md`；
 - 如果两者冲突，先指出冲突，不要自行合并。
 
@@ -302,5 +307,6 @@ scope: 中转窗口 / 完整聊天记录蒸馏 / 上下文去毒 / handoff-curre
 - 禁止把“读取 handoff 的启动提示”和“生成 handoff 的完整规则”混在一起。
 - 禁止在复杂 handoff 中使用容易复制损坏的嵌套 Markdown 大代码块。
 - 禁止在已启用 TodoList 的持续任务中忽略 `todolist.md`。
+- 禁止在本 Skill 内重新定义 TodoList 语义；TodoList 语义以 `04a-goal-todolist.md` 为准。
 - 禁止把支撑设施维护继承为 TodoList 主线。
 - 禁止检测到旧 handoff 声明存在配套 TodoList 时，忽略缺失的 `todolist.md` 继续蒸馏。
