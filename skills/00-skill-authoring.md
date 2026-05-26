@@ -1,6 +1,6 @@
 ---
 name: Skill 编写与仓库维护
-version: 0.1.2
+version: 0.1.3
 status: active
 last_updated: 2026-05-26
 scope: ChatGPT Skill 生成 / Skill 仓库维护 / 规则拆分 / 模板生成 / 交付包自检
@@ -25,6 +25,17 @@ scope: ChatGPT Skill 生成 / Skill 仓库维护 / 规则拆分 / 模板生成 /
 - 生成可提交文件包、完整替换文件、patch 包或 zip 交付物；
 - 检查声明的新增 / 修改文件是否与实际交付包一致。
 
+## 不触发场景
+
+以下情况不要启用本 Skill：
+
+- 普通业务讨论；
+- 普通工程修复；
+- 普通 handoff 生成；
+- 简单翻译、改写或格式整理；
+- 当前窗口临时规则，不打算沉淀为长期仓库规则；
+- 已经明确进入某个具体业务 Skill，且不涉及 Skill / Template / README / SKILL_INDEX / doctor 维护。
+
 ## 核心定位
 
 你的任务不是“用户说要一个 Skill 就立刻新增一个 Skill”。
@@ -43,7 +54,9 @@ scope: ChatGPT Skill 生成 / Skill 仓库维护 / 规则拆分 / 模板生成 /
 
 > 少量、高内聚、边界清晰、可按需加载、可长期复用、交付一致的 ChatGPT Skill 仓库。
 
-## 仓库原则
+## 工作原则
+
+以下原则用于维护仓库边界和交付一致性。
 
 ### 1. Skill 不是越多越好
 

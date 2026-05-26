@@ -76,6 +76,10 @@ function parseFrontmatter(content) {
   return data;
 }
 
+function stripFencedCodeBlocks(content) {
+  return content.replace(/```[\s\S]*?```/g, "");
+}
+
 function hasAny(content, needles) {
   return needles.some((needle) => content.includes(needle));
 }
@@ -109,6 +113,7 @@ function checkSkills(skillFiles, readme, index) {
 
   for (const rel of skillFiles) {
     const content = read(rel);
+    const contentForSectionChecks = stripFencedCodeBlocks(content);
 
     if (!readme.includes(rel)) {
       errors.push(`README.md does not mention skill file: ${rel}`);
@@ -144,7 +149,7 @@ function checkSkills(skillFiles, readme, index) {
     ];
 
     for (const [label, needles] of sectionChecks) {
-      if (!hasAny(content, needles)) {
+      if (!hasAny(contentForSectionChecks, needles)) {
         errors.push(`${rel}: missing section "${label}"`);
       }
     }

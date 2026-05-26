@@ -1,14 +1,38 @@
 # ChatGPT Skills
 
-这是一个用于存放 ChatGPT 长期工作规则的个人仓库。
+这是一个存放 ChatGPT 长期工作规则的个人仓库，用来在不同窗口中按需恢复稳定的工作方式。
 
-## 用途
+本仓库不是聊天记录库，也不是普通项目文档库；它只沉淀长期复用、边界清晰、可验证维护的 Skill 与启动模板。
 
-本仓库用于保存可复用的 Skill 文档和任务模板，帮助在不同窗口中保持一致的工作方式。
+## 使用方式
 
-它不是普通项目文档库，也不是聊天记录仓库。它的目标是让 ChatGPT 在新窗口中能够按需读取用户长期认可的工作规则。
+新窗口中优先使用：
 
-## 当前文件结构
+```text
+请读取我的 ChatGPT Skill 仓库：
+https://github.com/HisenWeb/chatgpt-skills
+
+读取顺序：
+1. 先读 SKILL_INDEX.md。
+2. 根据当前任务判断需要启用哪些 Skill。
+3. 只读取相关 Skill，不要全量读取所有文件。
+4. 读取后用一句话确认启用的 Skill 名称。
+
+当前窗口主题：
+〖填写当前主题〗
+```
+
+## 文件职责
+
+| 文件 / 目录 | 职责 |
+| --- | --- |
+| `README.md` | 仓库用途、目录结构、维护原则和运行方式；不承载完整规则正文。 |
+| `SKILL_INDEX.md` | Skill / Template 路由索引；帮助按需选择文件；不承载完整规则正文。 |
+| `skills/` | 长期行为规则。 |
+| `templates/` | 可复制的任务启动文本。 |
+| `scripts/doctor.mjs` | 结构一致性检查 gate。 |
+
+## 当前结构
 
 ```text
 .
@@ -32,131 +56,31 @@
    └─ doctor.mjs
 ```
 
-## 使用原则
-
-1. 先读 `SKILL_INDEX.md`。
-2. 根据当前任务选择相关 Skill。
-3. 只读取相关 Skill，不要全量读取所有文件。
-4. `skills/` 存放长期行为规则。
-5. `templates/` 存放可复制的任务启动模板。
-6. 当前窗口用户明确指令优先于仓库规则。
-
 ## 当前 Skill
 
-### `skills/00-skill-authoring.md`
+| 路径 | 名称 | 用途 |
+| --- | --- | --- |
+| `skills/00-skill-authoring.md` | Skill 编写与仓库维护 | 生成、修改、拆分、合并 Skill；维护 Template、README、SKILL_INDEX 和 doctor；检查交付包一致性。 |
+| `skills/01-control-reviewer.md` | 总控与质量守门 | 方案判断、风险识别、反 Yes-man、质量守门。 |
+| `skills/02-minimal-engineering-fix.md` | 工程最小改动修复 | 工程修复前的入口审计、配置语义判断、最小改动和验证输出。 |
+| `skills/04-handoff-regular.md` | 常规新窗口交接与 Handoff | 当前窗口可靠时生成当前状态快照；必要时同步已有 TodoList。 |
+| `skills/04a-goal-todolist.md` | 目标锚定与 TodoList 初始化 | 持续任务进入主线推进后初始化或校正 `todolist.md`。 |
+| `skills/04b-handoff-distillation.md` | 中转窗口去毒蒸馏与 Handoff | 基于旧窗口材料生成干净的 `handoff-current.md`；必要时同步 TodoList。 |
 
-名称：Skill 编写与仓库维护
+详细触发条件、禁区和输出规则以各 Skill 正文为准；README 只保留概览。
 
-用途：
+## 当前 Template
 
-- 生成新的 ChatGPT Skill；
-- 修改已有 Skill；
-- 拆分或合并 Skill；
-- 判断某条规则应该进入 Skill、Template、README、SKILL_INDEX，还是不应进入仓库；
-- 更新 `SKILL_INDEX.md`；
-- 为 Skill 仓库补充模板。
-
-这是元 Skill，用于维护本仓库中的其他 Skill。它不替代具体业务 Skill。
-
-### `skills/01-control-reviewer.md`
-
-名称：总控与质量守门
-
-用途：
-
-- 技术方案选择；
-- 产品 / 工程方向判断；
-- 用户带强假设推进方案；
-- 架构收敛；
-- 工具选型；
-- Agent / Workflow / Skill / Prompt 设计；
-- 工程修复方向判断。
-
-这是通用质量守门 Skill，用于防止盲目顺从、过度设计、工具地狱、硬编码、临时验证正式化和缺少证据的判断。
-
-### `skills/02-minimal-engineering-fix.md`
-
-名称：工程最小改动修复
-
-用途：
-
-- 修 Bug、排查异常、定位代码行为；
-- 修改配置写入、配置合并、配置切换、配置覆盖逻辑；
-- 处理多个入口可能写入同一份文件或同一段配置的问题；
-- 在给出 patch 前先审计真实写入入口和配置语义。
-
-这是具体工程修复 Skill，优先用于需要最小改动、入口审计和证据验证的工程问题。
-
-### `skills/04-handoff-regular.md`
-
-名称：常规新窗口交接与 Handoff
-
-用途：
-
-- 当前窗口主题相对集中；
-- 当前窗口仍然可靠；
-- 用户只是普通准备换窗口；
-- 需要生成当前状态快照；
-- 不需要从完整旧聊天记录做去毒蒸馏；
-- 当前任务已启用 `todolist.md` 时，同步更新 TodoList。
-
-### `skills/04a-goal-todolist.md`
-
-名称：目标锚定与 TodoList 初始化
-
-用途：
-
-- 当前讨论从自由探索进入持续任务；
-- 用户需要生成第一版 `todolist.md`；
-- 用户需要把最终目标、当前阶段目标、支撑设施、大方向 TodoList 和下一步原子任务分开；
-- Handoff Skill 在换窗口时需要同步更新已有 `todolist.md`。
-
-这是 Handoff 体系的配套 Skill，负责防止持续任务主线漂移。
-
-### `skills/04b-handoff-distillation.md`
-
-名称：中转窗口去毒蒸馏与 Handoff
-
-用途：
-
-- 用户明确说明这是中转窗口；
-- 用户上传或粘贴完整旧聊天记录；
-- 需要从旧窗口材料生成 `handoff-current.md`；
-- 需要剔除旧窗口中的 AI 脑补、错误尝试、顺从性结论、临时妥协；
-- 需要基于旧 handoff + 完整聊天记录滚动生成新的 `handoff-current.md`；
-- 当前任务已启用 `todolist.md` 时，同步生成更新后的 `todolist.md`。
-
-## 当前模板
-
-### `templates/skill-authoring-request.md`
-
-用于请求生成、修改、拆分或合并 Skill。
-
-### `templates/todolist-init.md`
-
-用于持续任务方向确定后，初始化第一版 `todolist.md`。
-
-### `templates/handoff-regular-current-window.md`
-
-用于当前窗口仍然可靠时，生成常规 `handoff-current.md`；如果已启用 `todolist.md`，同时同步更新 TodoList。
-
-### `templates/handoff-distill-from-chat-export.md`
-
-用于中转窗口基于完整旧聊天记录生成新的 `handoff-current.md`；如果提供旧 `todolist.md`，同时同步更新 TodoList。
-
-### `templates/new-window-read-handoff-file.md`
-
-用于新工作窗口读取已上传的 `handoff-current.md` 文件；如果同时上传 `todolist.md`，先读 handoff 再读 TodoList。
-
-### `templates/new-window-read-handoff-clipboard.md`
-
-用于新工作窗口读取用户直接粘贴的 `handoff-current.md` 内容；可同时读取粘贴的 `todolist.md`。
+| 路径 | 用途 |
+| --- | --- |
+| `templates/skill-authoring-request.md` | 请求生成、修改、拆分、合并 Skill，或维护 Skill 仓库结构。 |
+| `templates/todolist-init.md` | 在持续任务方向确定后初始化第一版 `todolist.md`。 |
+| `templates/handoff-regular-current-window.md` | 当前窗口仍可靠时生成常规 `handoff-current.md`。 |
+| `templates/handoff-distill-from-chat-export.md` | 中转窗口基于完整旧聊天记录生成新的 `handoff-current.md`。 |
+| `templates/new-window-read-handoff-file.md` | 新窗口读取上传的 `handoff-current.md` 和可选 `todolist.md`。 |
+| `templates/new-window-read-handoff-clipboard.md` | 新窗口读取粘贴的 `handoff-current.md` 和可选 `todolist.md`。 |
 
 ## Doctor 脚本
-
-### `scripts/doctor.mjs`
-
-用于检查仓库结构一致性，避免新增 Skill / Template 后漏改 `README.md` 或 `SKILL_INDEX.md`。
 
 运行方式：
 
@@ -164,42 +88,24 @@
 node scripts/doctor.mjs
 ```
 
-可检查：
+检查范围：
 
-- `README.md` 是否存在；
-- `SKILL_INDEX.md` 是否存在；
-- `skills/` 和 `templates/` 是否存在；
-- 所有 Skill 是否被 README 和 SKILL_INDEX 引用；
-- 所有 Template 是否被 README 和 SKILL_INDEX 引用；
-- SKILL_INDEX / README 中引用的路径是否真实存在；
-- Skill frontmatter 是否包含必要字段；
-- Skill 是否包含触发场景、不触发场景、核心定位、工作原则、输出要求或输出风格、禁止事项；
-- 是否残留 `INDEX.md`、`SKILL_INDEX_APPEND.md` 等临时文件。
+- 根目录必要文件；
+- `skills/`、`templates/` 目录；
+- README / SKILL_INDEX 中引用路径是否存在；
+- 所有 Skill / Template 是否被 README 和 SKILL_INDEX 引用；
+- Skill frontmatter 必填字段；
+- Skill 必要章节；
+- 检查 Skill 必要章节时忽略 fenced code block，避免示例结构造成假通过；
+- 临时 helper 文件残留。
 
-## 推荐读取方式
-
-新窗口中可以使用：
-
-```text
-请读取我的 ChatGPT Skill 仓库：
-https://github.com/HisenWeb/chatgpt-skills
-
-读取顺序：
-1. 先读 SKILL_INDEX.md。
-2. 根据当前任务判断需要启用哪些 Skill。
-3. 只读取相关 Skill，不要全量读取所有文件。
-4. 读取后用一句话确认启用的 Skill 名称。
-
-当前窗口主题：
-〖填写当前主题〗
-```
+Doctor 是结构一致性 gate，不替代语义评审。
 
 ## 维护原则
 
-1. Skill 不是越多越好。
-2. 默认优先更新已有 Skill，再考虑新增。
-3. Template 和 Skill 必须分离。
-4. `SKILL_INDEX.md` 只做路由，不承载完整规则正文。
-5. 不把当前窗口临时偏好写入长期仓库。
-6. 不把项目局部细节默认写成全局 Skill。
-7. 新增、删除、重命名或弃用 Skill / Template 时，必须同步考虑是否需要更新 README、SKILL_INDEX 和模板，并运行 `node scripts/doctor.mjs`。
+1. 先读 `SKILL_INDEX.md`，再按需读取相关 Skill。
+2. Skill 不是越多越好，默认优先更新已有 Skill 或新增 Template。
+3. `README.md` 只做仓库概览，`SKILL_INDEX.md` 只做路由索引，Skill 正文才承载规则。
+4. 不把当前窗口临时偏好、单项目细节或未验证流程写入长期 Skill。
+5. 新增、删除、重命名或弃用 Skill / Template 时，必须同步检查 README、SKILL_INDEX、相关模板和 `scripts/doctor.mjs`。
+6. 提交前运行 `node scripts/doctor.mjs`。
