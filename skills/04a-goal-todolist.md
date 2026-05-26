@@ -1,6 +1,6 @@
 ---
 name: 目标锚定与 TodoList 初始化
-version: 0.1.4
+version: 0.1.5
 status: active
 last_updated: 2026-05-27
 scope: todolist.md 初始化 / 主线推进账本 / 审核卡 / Handoff TodoList 同步语义
@@ -333,12 +333,11 @@ AI 认为可能要加，但还没有被用户确认的项。
 
 ### 换窗口同步时
 
-应输出：
+是否输出 `handoff-current.md` 由对应 Handoff Skill 决定。
 
-1. `handoff-current.md`；
-2. 更新后的 `todolist.md`。
+本 Skill 只规定：如果 Handoff Skill 已确认需要同步 `todolist.md`，则更新后的 `todolist.md` 必须遵守本 Skill 的目标锚定、审核 Gate、P0、状态同步和反漂移规则。
 
-`handoff-current.md` 只引用和摘要 TodoList，不完整复制 TodoList 正文。
+`handoff-current.md` 可以引用和摘要 TodoList，但不要完整复制 TodoList 正文。
 
 ## 状态与优先级
 
@@ -378,8 +377,8 @@ TodoList Skill 先生成审核卡
 用户确认后创建 todolist.md
 
 准备换窗口：
-Handoff Skill 读取当前窗口和旧 todolist.md
-输出 handoff-current.md + 更新后的 todolist.md
+由对应 Handoff Skill 判断是否输出 handoff-current.md
+如已确认需要同步 todolist.md，则按本 Skill 规则生成更新后的 todolist.md
 
 新窗口启动：
 同时读取 handoff-current.md 和 todolist.md

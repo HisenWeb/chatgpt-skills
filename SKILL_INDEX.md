@@ -91,7 +91,7 @@ node scripts/doctor.mjs
 
 - 路径：`skills/04a-goal-todolist.md`
 - 名称：目标锚定与 TodoList 初始化
-- 适用场景：自由探索进入持续任务；需要初始化 `todolist.md`；需要区分最终目标、当前阶段目标、支撑设施、大方向 TodoList 和下一步原子任务；Handoff 同步已有 TodoList。
+- 适用场景：用户明确要求初始化、修正或同步 `todolist.md`；需要建立“主线推进账本”“大方向 TodoList”或“防漂移 TodoList”；已存在 `todolist.md` 并需要在 Handoff 中同步更新。
 - 不适用场景：一次性问答；简单解释、翻译、改写；临时查资料；普通短窗口；当前任务没有持续推进需求；普通 handoff 但未启用过 `todolist.md`。
 - 推荐模板：`templates/todolist-init.md`
 - 关系：Handoff 体系配套 Skill；不替代 `skills/04-handoff-regular.md` 或 `skills/04b-handoff-distillation.md`。
