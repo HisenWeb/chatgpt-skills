@@ -17,6 +17,7 @@
 ├─ skills/
 │  ├─ 00-skill-authoring.md
 │  ├─ 01-control-reviewer.md
+│  ├─ 02-minimal-engineering-fix.md
 │  ├─ 04-handoff-regular.md
 │  └─ 04b-handoff-distillation.md
 ├─ templates/
@@ -70,6 +71,20 @@
 - 工程修复方向判断。
 
 这是通用质量守门 Skill，用于防止盲目顺从、过度设计、工具地狱、硬编码、临时验证正式化和缺少证据的判断。
+
+### `skills/02-minimal-engineering-fix.md`
+
+名称：工程最小改动修复
+
+用途：
+
+- 修 Bug、排查异常、定位代码行为；
+- 修改配置写入、配置合并、配置切换、配置覆盖逻辑；
+- 处理本地配置与生成配置之间的字段丢失、覆盖、回填、缓存、基准文件问题；
+- 在给出 patch 前强制审计真实写入入口和配置语义；
+- 防止过度设计、硬编码、临时验证正式化和绕过源头审计。
+
+这是具体工程修复 Skill。它比 `skills/01-control-reviewer.md` 更偏执行约束：`01` 负责方向审稿，`02` 负责修复前的入口审计、最小改动和验证输出。
 
 ### `skills/04-handoff-regular.md`
 
