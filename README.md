@@ -40,7 +40,6 @@
 4. `skills/` 存放长期行为规则。
 5. `templates/` 存放可复制的任务启动模板。
 6. 当前窗口用户明确指令优先于仓库规则。
-7. 已启用 `todolist.md` 的持续任务，换窗口时应同时携带 `handoff-current.md` 和 `todolist.md`。
 
 ## 当前 Skill
 
@@ -83,11 +82,10 @@
 
 - 修 Bug、排查异常、定位代码行为；
 - 修改配置写入、配置合并、配置切换、配置覆盖逻辑；
-- 处理本地配置与生成配置之间的字段丢失、覆盖、回填、缓存、基准文件问题；
-- 在给出 patch 前强制审计真实写入入口和配置语义；
-- 防止过度设计、硬编码、临时验证正式化和绕过源头审计。
+- 处理多个入口可能写入同一份文件或同一段配置的问题；
+- 在给出 patch 前先审计真实写入入口和配置语义。
 
-这是具体工程修复 Skill。它比 `skills/01-control-reviewer.md` 更偏执行约束：`01` 负责方向审稿，`02` 负责修复前的入口审计、最小改动和验证输出。
+这是具体工程修复 Skill，优先用于需要最小改动、入口审计和证据验证的工程问题。
 
 ### `skills/04-handoff-regular.md`
 
@@ -100,7 +98,7 @@
 - 用户只是普通准备换窗口；
 - 需要生成当前状态快照；
 - 不需要从完整旧聊天记录做去毒蒸馏；
-- 如果当前持续任务已启用 `todolist.md`，在生成 handoff 时同步更新 TodoList。
+- 当前任务已启用 `todolist.md` 时，同步更新 TodoList。
 
 ### `skills/04a-goal-todolist.md`
 
@@ -111,9 +109,9 @@
 - 当前讨论从自由探索进入持续任务；
 - 用户需要生成第一版 `todolist.md`；
 - 用户需要把最终目标、当前阶段目标、支撑设施、大方向 TodoList 和下一步原子任务分开；
-- 为 Handoff Skill 换窗口时同步更新 `todolist.md` 提供规则语义。
+- Handoff Skill 在换窗口时需要同步更新已有 `todolist.md`。
 
-这是 Handoff 体系的配套 Skill。它不是通用项目管理系统，也不替代 Handoff Skill。
+这是 Handoff 体系的配套 Skill，负责防止持续任务主线漂移。
 
 ### `skills/04b-handoff-distillation.md`
 
@@ -126,7 +124,7 @@
 - 需要从旧窗口材料生成 `handoff-current.md`；
 - 需要剔除旧窗口中的 AI 脑补、错误尝试、顺从性结论、临时妥协；
 - 需要基于旧 handoff + 完整聊天记录滚动生成新的 `handoff-current.md`；
-- 如果旧任务已启用 `todolist.md`，同步生成更新后的 `todolist.md`。
+- 当前任务已启用 `todolist.md` 时，同步生成更新后的 `todolist.md`。
 
 ## 当前模板
 
@@ -136,7 +134,7 @@
 
 ### `templates/todolist-init.md`
 
-用于在持续任务方向确定后，初始化第一版 `todolist.md`。
+用于持续任务方向确定后，初始化第一版 `todolist.md`。
 
 ### `templates/handoff-regular-current-window.md`
 
@@ -152,7 +150,7 @@
 
 ### `templates/new-window-read-handoff-clipboard.md`
 
-用于新工作窗口读取用户直接粘贴的 `handoff-current.md` 内容；可同时粘贴 `todolist.md`。
+用于新工作窗口读取用户直接粘贴的 `handoff-current.md` 内容；可同时读取粘贴的 `todolist.md`。
 
 ## Doctor 脚本
 
@@ -193,7 +191,7 @@ https://github.com/HisenWeb/chatgpt-skills
 4. 读取后用一句话确认启用的 Skill 名称。
 
 当前窗口主题：
-【填写当前主题】
+〖填写当前主题〗
 ```
 
 ## 维护原则
@@ -205,5 +203,3 @@ https://github.com/HisenWeb/chatgpt-skills
 5. 不把当前窗口临时偏好写入长期仓库。
 6. 不把项目局部细节默认写成全局 Skill。
 7. 新增、删除、重命名或弃用 Skill / Template 时，必须同步考虑是否需要更新 README、SKILL_INDEX 和模板，并运行 `node scripts/doctor.mjs`。
-8. `todolist.md` 只用于持续任务，不要强加到一次性问答或临时任务。
-9. 已启用 `todolist.md` 的持续任务，生成 handoff 时应同时输入旧 `todolist.md`，并输出更新后的 `todolist.md`。
