@@ -1,9 +1,9 @@
 ---
 name: 中转窗口去毒蒸馏与 Handoff
-version: 0.1.0
+version: 0.1.1
 status: active
 last_updated: 2026-05-26
-scope: 中转窗口 / 完整聊天记录蒸馏 / 上下文去毒 / handoff-current.md / todolist.md 同步
+scope: 中转窗口 / 完整聊天记录蒸馏 / 上下文去毒 / handoff-current.md / todolist.md 自动识别与同步
 ---
 
 # ChatGPT 专属 Skill：中转窗口去毒蒸馏与 Handoff
@@ -20,6 +20,7 @@ scope: 中转窗口 / 完整聊天记录蒸馏 / 上下文去毒 / handoff-curre
 - 旧窗口中出现模型降智、复读、顺从、胡乱修复、过度设计；
 - 需要基于旧 handoff + 完整聊天记录生成新的 `handoff-current.md`；
 - 旧窗口任务已经启用 `todolist.md`，需要同步生成更新后的 `todolist.md`；
+- 旧 handoff、旧聊天或输入材料中出现 `todolist.md`、配套 TodoList、主线推进账本、大方向 TodoList 等标记，需要自动识别是否同步 TodoList；
 - 需要把旧窗口的有效结论迁移到新工作窗口。
 
 ## 不触发场景
@@ -84,7 +85,25 @@ scope: 中转窗口 / 完整聊天记录蒸馏 / 上下文去毒 / handoff-curre
 
 如果旧聊天中的 AI 结论与真实证据冲突，必须剔除 AI 结论。
 
-### 2. 去毒蒸馏
+### 2. TodoList 自动识别
+
+中转蒸馏时，必须自动判断旧任务是否启用了 `todolist.md`。
+
+判定为“已启用 TodoList”的条件包括：
+
+- 输入材料中包含 `todolist.md`；
+- 旧 handoff 中出现“配套 TodoList”“todolist.md”“主线推进账本”“大方向 TodoList”等明确标记；
+- 旧聊天记录中多次引用 TodoList、P0/P1/P2、当前阶段目标、下一步原子任务；
+- 用户明确说明旧任务有 TodoList 或需要按 TodoList 延续。
+
+处理规则：
+
+- 如果检测到旧任务启用了 TodoList，且用户提供了 `todolist.md`，必须同步输出更新后的 `todolist.md`。
+- 如果检测到旧任务启用了 TodoList，但用户未提供 `todolist.md`，必须在 handoff 的“证据缺口 / 待确认”中记录，并提醒用户补充。
+- 不允许只根据旧聊天中的零散 Todo 片段重建为确定事实；缺少原始 `todolist.md` 时，只能写成待确认。
+- 如果用户明确说“不需要 TodoList”或“本次只要 handoff”，则按用户当前指令执行，但必须记录 TodoList 未同步的原因。
+
+### 3. 去毒蒸馏
 
 中转窗口必须主动剔除以下内容：
 
@@ -105,7 +124,7 @@ scope: 中转窗口 / 完整聊天记录蒸馏 / 上下文去毒 / handoff-curre
 
 但不要删除所有失败路径。会影响后续避坑的废弃方案必须压缩保留。
 
-### 3. 关键锚点优先
+### 4. 关键锚点优先
 
 中转蒸馏必须先找出“最高锚点”。
 
@@ -123,7 +142,7 @@ scope: 中转窗口 / 完整聊天记录蒸馏 / 上下文去毒 / handoff-curre
 
 任何旧聊天内容只要与最高锚点冲突，就不能作为新 handoff 或新 TodoList 的事实继承。
 
-### 4. 单份当前状态快照
+### 5. 单份当前状态快照
 
 最终只输出一份新的 handoff。
 
@@ -135,7 +154,7 @@ scope: 中转窗口 / 完整聊天记录蒸馏 / 上下文去毒 / handoff-curre
 
 如果存在冲突或不确定项，应放入 handoff 的“冲突 / 待确认”部分，以及 TodoList 的“待确认 / 候选项”，不要生成多个版本。
 
-### 5. TodoList 同步规则
+### 6. TodoList 同步规则
 
 如果用户提供旧 `todolist.md`，中转蒸馏必须按以下规则处理：
 
@@ -147,7 +166,7 @@ scope: 中转窗口 / 完整聊天记录蒸馏 / 上下文去毒 / handoff-curre
 - 下一步原子任务必须从当前 P0 或当前阶段目标拆出；
 - 不把旧窗口 AI 的计划自动继承为 TodoList 主线。
 
-### 6. 原子级下一步
+### 7. 原子级下一步
 
 中转蒸馏版特别强调：下一步必须可审计、可执行、边界小。
 
@@ -284,3 +303,4 @@ scope: 中转窗口 / 完整聊天记录蒸馏 / 上下文去毒 / handoff-curre
 - 禁止在复杂 handoff 中使用容易复制损坏的嵌套 Markdown 大代码块。
 - 禁止在已启用 TodoList 的持续任务中忽略 `todolist.md`。
 - 禁止把支撑设施维护继承为 TodoList 主线。
+- 禁止检测到旧 handoff 声明存在配套 TodoList 时，忽略缺失的 `todolist.md` 继续蒸馏。

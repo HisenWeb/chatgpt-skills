@@ -6,7 +6,8 @@
 - 用户会上传或粘贴完整旧聊天记录；
 - 需要从旧窗口材料生成干净的 handoff-current.md；
 - 需要剔除旧窗口中的错误尝试、AI 脑补、顺从性结论、临时妥协；
-- 可选：旧任务已经启用 `todolist.md`，需要同步生成更新后的 `todolist.md`。
+- 可选：旧任务已经启用 `todolist.md`，需要同步生成更新后的 `todolist.md`；
+- 需要自动识别旧 handoff 或旧聊天中是否声明存在配套 TodoList。
 
 复制到中转窗口使用：
 
@@ -15,9 +16,13 @@
 
 请启用 ChatGPT Skill：中转窗口去毒蒸馏与 Handoff。
 
-我会提供旧窗口完整聊天记录、旧 handoff、旧 todolist.md 或补充材料。请基于这些材料生成新的 handoff-current.md。
+我会提供旧窗口完整聊天记录、旧 handoff、旧 todolist.md 或补充材料。请基于这些材料生成新的 handoff-current.md，并自动判断旧任务是否已经启用 todolist.md。
 
-如果提供了 todolist.md，请同时按 TodoList 规则输出更新后的 todolist.md。
+自动识别规则：
+1. 如果我提供了旧 todolist.md，请同时按 TodoList 规则输出更新后的 todolist.md。
+2. 如果旧 handoff 或旧聊天中声明存在“配套 TodoList / todolist.md / 主线推进账本 / 大方向 TodoList”，但我没有提供 todolist.md，请在 handoff 的证据缺口 / 待确认中记录，并提醒我补充。
+3. 不允许只根据旧聊天中的零散 Todo 片段重建为确定事实；缺少原始 todolist.md 时，只能写成待确认。
+4. 如果没有检测到 todolist.md 或配套 TodoList 标记，则只输出 handoff-current.md，不要强行创建 TodoList。
 
 要求：
 1. 先判断输入材料是否完整，是否存在截断、附件缺失或证据缺口。

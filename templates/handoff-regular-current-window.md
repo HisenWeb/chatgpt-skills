@@ -6,16 +6,21 @@
 - 当前窗口仍然可靠；
 - 只是准备普通换窗口；
 - 不需要读取完整旧聊天记录；
-- 可选：当前持续任务已经启用 `todolist.md`，需要换窗口时同步更新。
+- 可选：当前持续任务已经启用 `todolist.md`，需要换窗口时同步更新；
+- 需要自动识别当前任务是否已经启用或声明配套 TodoList。
 
 复制到当前窗口使用：
 
 ```text
 请启用 ChatGPT Skill：常规新窗口交接与 Handoff。
 
-请基于当前窗口生成一份 handoff-current.md。
+请基于当前窗口生成一份 handoff-current.md，并自动判断当前任务是否已经启用 todolist.md。
 
-如果当前任务已经启用 todolist.md，我会同时提供当前 todolist.md。请在生成 handoff-current.md 的同时，按 TodoList 规则同步输出更新后的 todolist.md。
+自动识别规则：
+1. 如果我提供了当前 todolist.md，请在生成 handoff-current.md 的同时，按 TodoList 规则同步输出更新后的 todolist.md。
+2. 如果当前窗口或旧 handoff 中声明存在“配套 TodoList / todolist.md / 主线推进账本 / 大方向 TodoList”，但我没有提供 todolist.md，请先提醒我补充，不要只生成 handoff。
+3. 如果没有检测到 todolist.md 或配套 TodoList 标记，则只生成 handoff-current.md，不要强行创建 TodoList。
+4. 如果我明确说本次不需要 TodoList，则按当前指令执行，但在 handoff 的证据缺口 / 待确认中记录 TodoList 未同步。
 
 要求：
 1. 先判断当前窗口是否适合常规 handoff。
