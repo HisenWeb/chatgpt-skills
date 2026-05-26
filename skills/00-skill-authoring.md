@@ -1,9 +1,9 @@
 ---
 name: Skill 编写与仓库维护
-version: 0.1.0
+version: 0.1.1
 status: active
 last_updated: 2026-05-26
-scope: ChatGPT Skill 生成 / Skill 仓库维护 / 规则拆分 / 模板生成
+scope: ChatGPT Skill 生成 / Skill 仓库维护 / 规则拆分 / 模板生成 / 交付包自检
 ---
 
 # ChatGPT 专属 Skill：Skill 编写与仓库维护
@@ -21,7 +21,9 @@ scope: ChatGPT Skill 生成 / Skill 仓库维护 / 规则拆分 / 模板生成
 - 为 Skill 仓库补充模板；
 - 维护或运行 `scripts/doctor.mjs`；
 - 设计 Skill 仓库结构；
-- 判断某个规则应该放入 Skill、Template、README、Handoff，还是不应该写入仓库。
+- 判断某个规则应该放入 Skill、Template、README、Handoff，还是不应该写入仓库；
+- 生成可提交文件包、完整替换文件、patch 包或 zip 交付物；
+- 检查声明的新增 / 修改文件是否与实际交付包一致。
 
 ## 核心定位
 
@@ -34,11 +36,12 @@ scope: ChatGPT Skill 生成 / Skill 仓库维护 / 规则拆分 / 模板生成
 3. 是否只是需要一个 Template；
 4. 是否只是当前窗口临时规则，不该进入长期仓库；
 5. 是否会导致 Skill 膨胀、重复、互相污染；
-6. 是否符合用户长期工作方式。
+6. 是否符合用户长期工作方式；
+7. 声明的文件修改范围是否和最终交付物一致。
 
 最终目标是维护一个：
 
-> 少量、高内聚、边界清晰、可按需加载、可长期复用的 ChatGPT Skill 仓库。
+> 少量、高内聚、边界清晰、可按需加载、可长期复用、交付一致的 ChatGPT Skill 仓库。
 
 ## 仓库原则
 
@@ -177,6 +180,10 @@ node scripts/doctor.mjs
 
 如果 doctor 报错，应先修复结构一致性问题，再继续新增其他 Skill。
 
+Doctor 是结构一致性 gate，不是语义质量判断器。
+
+不要把 doctor 维护本身提升成主线目标。
+
 ## 文件命名规则
 
 ### Skill 文件命名
@@ -195,6 +202,7 @@ NN-topic-name.md
 02-minimal-engineering-fix.md
 03-stage-evidence-review.md
 04-handoff-regular.md
+04a-goal-todolist.md
 04b-handoff-distillation.md
 05-html-design-artifact.md
 06-agent-workflow-design.md
@@ -206,7 +214,7 @@ NN-topic-name.md
 - 使用小写英文；
 - 用连字符连接；
 - 编号只表示大致排序，不表示绝对优先级；
-- 相关增强版可以用 `04b` 这类后缀；
+- 相关增强版可以用 `04a`、`04b` 这类后缀；
 - 不要使用 `final`、`new`、`copy`、`v2-final` 等临时命名。
 
 ### Template 文件命名
@@ -225,6 +233,7 @@ handoff-distill-from-chat-export.md
 new-window-read-handoff-file.md
 new-window-read-handoff-clipboard.md
 skill-authoring-request.md
+todolist-init.md
 ```
 
 ## Skill 文件头部规范
@@ -324,7 +333,9 @@ scope: ...
 
 - `00-skill-authoring.md`
 - `01-control-reviewer.md`
+- `02-minimal-engineering-fix.md`
 - `04-handoff-regular.md`
+- `04a-goal-todolist.md`
 - `04b-handoff-distillation.md`
 
 以及用户后续仓库中已有的其他 Skill。
@@ -339,7 +350,8 @@ scope: ...
 - 是否会在无关任务中误触发；
 - 是否与已有 Skill 冲突；
 - 是否把模板内容写进规则；
-- 是否把项目细节写成全局规则。
+- 是否把项目细节写成全局规则；
+- 是否把支撑设施维护写成主线目标。
 
 ### 4. 最终建议
 
@@ -351,7 +363,8 @@ scope: ...
 - 是否需要更新 `SKILL_INDEX.md`；
 - 是否需要更新 `README.md`；
 - 是否需要更新或运行 `scripts/doctor.mjs`；
-- 是否存在冲突或风险。
+- 是否存在冲突或风险；
+- 如果涉及多个文件，声明文件清单和交付方式。
 
 ## 输出要求
 
@@ -365,7 +378,10 @@ scope: ...
 6. Skill 正文；
 7. 可选：Template 正文；
 8. 可选：`SKILL_INDEX.md` 追加条目；
-9. 可选：`README.md` 更新片段或完整替换文件。
+9. 可选：`README.md` 更新片段或完整替换文件；
+10. 如果生成 zip，必须说明 zip 内实际包含哪些文件；
+11. 如果只生成 patch，必须明确说明这是 patch-only 包，不是完整文件包；
+12. 如果用户要求“完整文件内容”或“可直接覆盖文件”，必须提供完整文件，不能只提供 patch。
 
 如果内容较长，优先生成可下载 `.md` 或 `.zip` 文件，而不是在聊天里输出大段嵌套 Markdown。
 
@@ -381,6 +397,82 @@ templates/skill-authoring-request.md
 ```
 
 不要生成多层无意义目录。
+
+生成包可以有两种交付方式：
+
+### 1. 完整文件包
+
+适用于用户要求：
+
+- 可直接提交的文件内容；
+- 可直接覆盖的文件；
+- 多个文件完整内容；
+- 不想手动应用 patch。
+
+完整文件包必须包含所有声明新增 / 修改的文件。
+
+### 2. Patch-only 包
+
+适用于用户明确接受 patch，或本轮只适合提供最小 diff。
+
+Patch-only 包必须明确说明：
+
+- 这是 patch-only 包；
+- 不包含完整替换文件；
+- 用户需要通过 patch 应用修改；
+- 哪些文件会被 patch 修改。
+
+如果用户要求“直接把整个文件发我”“完整文件包”“可直接覆盖”，禁止只提供 patch。
+
+## 生成包自检要求
+
+当回答中声明涉及多个新增 / 修改文件时，生成 zip 前必须执行交付一致性自检。
+
+必须先列出：
+
+```text
+声明文件清单：
+- 新增：...
+- 修改：...
+- 不改但需运行 / 检查：...
+```
+
+然后核对：
+
+```text
+zip 实际文件清单：
+- ...
+```
+
+最终交付前必须确认：
+
+1. 声明新增的文件，zip 中必须存在；
+2. 声明修改的文件，zip 中必须存在完整替换文件，除非明确标注为 patch-only；
+3. 如果回答说“完整文件包”，zip 不能只包含 patch；
+4. 如果回答说“patch-only 包”，最终回答和 `APPLY.md` 都必须写清 patch-only；
+5. 如果用户要求“可直接提交的文件内容”，必须提供完整文件或明确说明为什么不能提供；
+6. 最终回答中的文件清单必须与 zip 内实际文件清单一致。
+
+禁止出现：
+
+- 声明修改某文件，但 zip 中没有该文件；
+- 声明是完整包，但实际只有 patch；
+- 用 patch 替代用户明确要求的完整文件；
+- zip 内文件路径与仓库根目录结构不一致；
+- 没有说明 patch-only 与 full-files 的区别；
+- 把“需要修改的文件”只写在说明里，却不交付对应文件内容。
+
+交付前必须做一次最终自检：
+
+```text
+交付一致性检查：
+- 声明新增文件：N 个，已交付 N 个
+- 声明修改文件：N 个，已交付 N 个 / 或明确 patch-only
+- README / SKILL_INDEX：需要更新则已包含；不需要则说明原因
+- doctor.mjs：需要修改则已包含；不需要则说明只需运行
+```
+
+如果无法完成一致性自检，不要假装已经交付完整包。
 
 ## `SKILL_INDEX.md` 更新要求
 
@@ -462,6 +554,11 @@ Template 应该说明：
 - 禁止为了完整而堆长篇背景。
 - 禁止在没有用户确认的情况下弃用旧 Skill。
 - 禁止把未经验证的新流程包装成长期规范。
+- 禁止声明要修改多个文件，却只交付其中一部分。
+- 禁止把 patch-only 包说成完整文件包。
+- 禁止用户要求完整文件时只给 patch。
+- 禁止 zip 内实际文件清单与最终回答中的文件清单不一致。
+- 禁止不做交付一致性自检就交付 zip。
 
 ## 默认回答风格
 
@@ -471,4 +568,6 @@ Template 应该说明：
 - 再给文件内容；
 - 少讲背景；
 - 明确冲突和不确定点；
-- 优先输出可提交文件。
+- 优先输出可提交文件；
+- 涉及多个文件时，必须明确交付方式是完整文件包还是 patch-only 包；
+- 最终回答必须列出真实交付文件清单。

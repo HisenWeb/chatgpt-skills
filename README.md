@@ -19,9 +19,11 @@
 │  ├─ 01-control-reviewer.md
 │  ├─ 02-minimal-engineering-fix.md
 │  ├─ 04-handoff-regular.md
+│  ├─ 04a-goal-todolist.md
 │  └─ 04b-handoff-distillation.md
 ├─ templates/
 │  ├─ skill-authoring-request.md
+│  ├─ todolist-init.md
 │  ├─ handoff-regular-current-window.md
 │  ├─ handoff-distill-from-chat-export.md
 │  ├─ new-window-read-handoff-file.md
@@ -38,6 +40,7 @@
 4. `skills/` 存放长期行为规则。
 5. `templates/` 存放可复制的任务启动模板。
 6. 当前窗口用户明确指令优先于仓库规则。
+7. 已启用 `todolist.md` 的持续任务，换窗口时应同时携带 `handoff-current.md` 和 `todolist.md`。
 
 ## 当前 Skill
 
@@ -96,7 +99,21 @@
 - 当前窗口仍然可靠；
 - 用户只是普通准备换窗口；
 - 需要生成当前状态快照；
-- 不需要从完整旧聊天记录做去毒蒸馏。
+- 不需要从完整旧聊天记录做去毒蒸馏；
+- 如果当前持续任务已启用 `todolist.md`，在生成 handoff 时同步更新 TodoList。
+
+### `skills/04a-goal-todolist.md`
+
+名称：目标锚定与 TodoList 初始化
+
+用途：
+
+- 当前讨论从自由探索进入持续任务；
+- 用户需要生成第一版 `todolist.md`；
+- 用户需要把最终目标、当前阶段目标、支撑设施、大方向 TodoList 和下一步原子任务分开；
+- 为 Handoff Skill 换窗口时同步更新 `todolist.md` 提供规则语义。
+
+这是 Handoff 体系的配套 Skill。它不是通用项目管理系统，也不替代 Handoff Skill。
 
 ### `skills/04b-handoff-distillation.md`
 
@@ -108,7 +125,8 @@
 - 用户上传或粘贴完整旧聊天记录；
 - 需要从旧窗口材料生成 `handoff-current.md`；
 - 需要剔除旧窗口中的 AI 脑补、错误尝试、顺从性结论、临时妥协；
-- 需要基于旧 handoff + 完整聊天记录滚动生成新的 `handoff-current.md`。
+- 需要基于旧 handoff + 完整聊天记录滚动生成新的 `handoff-current.md`；
+- 如果旧任务已启用 `todolist.md`，同步生成更新后的 `todolist.md`。
 
 ## 当前模板
 
@@ -116,21 +134,25 @@
 
 用于请求生成、修改、拆分或合并 Skill。
 
+### `templates/todolist-init.md`
+
+用于在持续任务方向确定后，初始化第一版 `todolist.md`。
+
 ### `templates/handoff-regular-current-window.md`
 
-用于当前窗口仍然可靠时，生成常规 `handoff-current.md`。
+用于当前窗口仍然可靠时，生成常规 `handoff-current.md`；如果已启用 `todolist.md`，同时同步更新 TodoList。
 
 ### `templates/handoff-distill-from-chat-export.md`
 
-用于中转窗口基于完整旧聊天记录生成新的 `handoff-current.md`。
+用于中转窗口基于完整旧聊天记录生成新的 `handoff-current.md`；如果提供旧 `todolist.md`，同时同步更新 TodoList。
 
 ### `templates/new-window-read-handoff-file.md`
 
-用于新工作窗口读取已上传的 `handoff-current.md` 文件。
+用于新工作窗口读取已上传的 `handoff-current.md` 文件；如果同时上传 `todolist.md`，先读 handoff 再读 TodoList。
 
 ### `templates/new-window-read-handoff-clipboard.md`
 
-用于新工作窗口读取用户直接粘贴的 `handoff-current.md` 内容。
+用于新工作窗口读取用户直接粘贴的 `handoff-current.md` 内容；可同时粘贴 `todolist.md`。
 
 ## Doctor 脚本
 
@@ -183,3 +205,5 @@ https://github.com/HisenWeb/chatgpt-skills
 5. 不把当前窗口临时偏好写入长期仓库。
 6. 不把项目局部细节默认写成全局 Skill。
 7. 新增、删除、重命名或弃用 Skill / Template 时，必须同步考虑是否需要更新 README、SKILL_INDEX 和模板，并运行 `node scripts/doctor.mjs`。
+8. `todolist.md` 只用于持续任务，不要强加到一次性问答或临时任务。
+9. 已启用 `todolist.md` 的持续任务，生成 handoff 时应同时输入旧 `todolist.md`，并输出更新后的 `todolist.md`。

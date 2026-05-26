@@ -186,14 +186,16 @@ Skill 编写与仓库维护
 - 当前窗口仍然可靠；
 - 用户只是普通准备换窗口；
 - 需要生成当前状态快照；
-- 不需要从完整旧聊天记录做去毒蒸馏。
+- 不需要从完整旧聊天记录做去毒蒸馏；
+- 当前持续任务已经启用 `todolist.md`，需要在生成 handoff 时同步更新 TodoList。
 
 不适用场景：
 
 - 旧窗口很长、很乱、跨主题严重；
 - 用户认为旧窗口已经降智、复读、顺从或越改越乱；
 - 用户会把完整聊天记录放到中转窗口；
-- 需要从旧聊天导出材料生成 `handoff-current.md`。
+- 需要从旧聊天导出材料生成 `handoff-current.md`；
+- 当前任务只是一次性问答，不需要换窗口继续。
 
 推荐模板：
 
@@ -201,7 +203,44 @@ Skill 编写与仓库维护
 
 关系：
 
-常规版用于当前窗口直接生成状态快照。它不负责读取完整旧聊天记录，也不负责去毒蒸馏。
+常规版用于当前窗口直接生成状态快照。它不负责读取完整旧聊天记录，也不负责去毒蒸馏。如果任务已启用 `todolist.md`，它会引用 `skills/04a-goal-todolist.md` 的规则同步更新 TodoList。
+
+---
+
+### 04a-goal-todolist.md
+
+路径：
+
+`skills/04a-goal-todolist.md`
+
+名称：
+
+目标锚定与 TodoList 初始化
+
+适用场景：
+
+- 当前讨论从自由探索进入持续任务；
+- 用户需要生成第一版 `todolist.md`；
+- 用户要求建立主线推进账本；
+- 用户需要把最终目标、当前阶段目标、支撑设施、大方向 TodoList 和下一步原子任务分开；
+- Handoff Skill 在换窗口时需要同步更新已有 `todolist.md`，并需要引用 TodoList 语义规则。
+
+不适用场景：
+
+- 一次性问答；
+- 简单解释、翻译、改写；
+- 临时查资料；
+- 普通短窗口；
+- 当前任务没有持续推进需求；
+- 已经进入普通 handoff，但该任务没有启用过 `todolist.md`。
+
+推荐模板：
+
+`templates/todolist-init.md`
+
+关系：
+
+这是 Handoff 体系的配套 Skill。它主要负责首次初始化 `todolist.md`，并为 Handoff Skill 换窗口时同步 TodoList 提供结构和语义规则。它不替代 `skills/04-handoff-regular.md` 或 `skills/04b-handoff-distillation.md`。
 
 ---
 
@@ -221,7 +260,8 @@ Skill 编写与仓库维护
 - 用户上传或粘贴完整旧聊天记录；
 - 需要从旧窗口材料生成 `handoff-current.md`；
 - 需要剔除旧窗口中的 AI 脑补、错误尝试、顺从性结论、临时妥协；
-- 需要基于旧 handoff + 完整聊天记录滚动生成新的 `handoff-current.md`。
+- 需要基于旧 handoff + 完整聊天记录滚动生成新的 `handoff-current.md`；
+- 旧任务已经启用 `todolist.md`，需要同步生成更新后的 `todolist.md`。
 
 不适用场景：
 
@@ -236,7 +276,7 @@ Skill 编写与仓库维护
 
 关系：
 
-中转版用于三窗口迁移流程中的中转窗口。它负责从旧聊天材料中提取干净的当前状态快照，不负责继续业务执行。
+中转版用于三窗口迁移流程中的中转窗口。它负责从旧聊天材料中提取干净的当前状态快照，不负责继续业务执行。如果任务已启用 `todolist.md`，它会引用 `skills/04a-goal-todolist.md` 的规则同步校正和更新 TodoList。
 
 ## Template 列表
 
@@ -256,6 +296,22 @@ Skill 编写与仓库维护
 
 ---
 
+### todolist-init.md
+
+路径：
+
+`templates/todolist-init.md`
+
+用途：
+
+在持续任务方向确定后，初始化第一版 `todolist.md`。
+
+关联 Skill：
+
+`skills/04a-goal-todolist.md`
+
+---
+
 ### handoff-regular-current-window.md
 
 路径：
@@ -264,7 +320,7 @@ Skill 编写与仓库维护
 
 用途：
 
-当前窗口仍然可靠时，请求生成常规 `handoff-current.md`。
+当前窗口仍然可靠时，请求生成常规 `handoff-current.md`；如果已启用 `todolist.md`，同时同步更新 TodoList。
 
 关联 Skill：
 
@@ -280,7 +336,7 @@ Skill 编写与仓库维护
 
 用途：
 
-在中转窗口中，基于完整旧聊天记录生成新的 `handoff-current.md`。
+在中转窗口中，基于完整旧聊天记录生成新的 `handoff-current.md`；如果提供旧 `todolist.md`，同时同步更新 TodoList。
 
 关联 Skill：
 
@@ -296,11 +352,11 @@ Skill 编写与仓库维护
 
 用途：
 
-新工作窗口读取用户上传的 `handoff-current.md` 文件。
+新工作窗口读取用户上传的 `handoff-current.md` 文件；如果同时上传 `todolist.md`，先读 handoff 再读 TodoList。
 
 关联 Skill：
 
-无需读取生成类 Skill。此模板只用于读取已经生成的 handoff。
+无需读取生成类 Skill。此模板只用于读取已经生成的 handoff 和可选 TodoList。
 
 ---
 
@@ -312,11 +368,11 @@ Skill 编写与仓库维护
 
 用途：
 
-新工作窗口读取用户直接粘贴的 `handoff-current.md` 内容。
+新工作窗口读取用户直接粘贴的 `handoff-current.md` 内容；可同时读取粘贴的 `todolist.md`。
 
 关联 Skill：
 
-无需读取生成类 Skill。此模板只用于读取已经生成的 handoff。
+无需读取生成类 Skill。此模板只用于读取已经生成的 handoff 和可选 TodoList。
 
 ## 新增 Skill 时的索引更新要求
 
