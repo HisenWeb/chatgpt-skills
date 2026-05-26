@@ -207,6 +207,58 @@ function checkIndexPolicy(index) {
   }
 }
 
+function extractIndexSkillSections(index) {
+  const sections = new Map();
+  const headingPattern = /^###\s+([0-9]{2}[a-z]?-[a-z0-9-]+\.md)\s*$/gm;
+  const headings = [];
+  let match;
+
+  while ((match = headingPattern.exec(index)) !== null) {
+    headings.push({
+      name: match[1],
+      headingStart: match.index,
+      bodyStart: headingPattern.lastIndex,
+    });
+  }
+
+  for (let i = 0; i < headings.length; i++) {
+    const current = headings[i];
+    const next = headings[i + 1];
+    const end = next ? next.headingStart : index.length;
+    sections.set(current.name, index.slice(current.bodyStart, end));
+  }
+
+  return sections;
+}
+
+function checkIndexSkillEntries(skillFiles, index) {
+  const sections = extractIndexSkillSections(index);
+  const requiredEntryFields = ["路径", "名称", "适用场景", "不适用场景", "推荐模板", "关系"];
+
+  for (const rel of skillFiles) {
+    const name = path.basename(rel);
+    const section = sections.get(name);
+
+    if (!section) {
+      errors.push(`SKILL_INDEX.md is missing skill entry heading: ### ${name}`);
+      continue;
+    }
+
+    for (const field of requiredEntryFields) {
+      if (!section.includes(`- ${field}：`)) {
+        errors.push(`SKILL_INDEX.md entry ${name} is missing field: ${field}`);
+      }
+    }
+
+    const pathMatch = section.match(/- 路径：`([^`]+)`/);
+    if (!pathMatch) {
+      errors.push(`SKILL_INDEX.md entry ${name} is missing a backtick path value`);
+    } else if (pathMatch[1] !== rel) {
+      errors.push(`SKILL_INDEX.md entry ${name} path mismatch: expected ${rel}, got ${pathMatch[1]}`);
+    }
+  }
+}
+
 function main() {
   console.log(`Doctor root: ${root}`);
 
@@ -229,6 +281,7 @@ function main() {
   checkTemplates(templateFiles, readme, index);
   checkScripts(scriptFiles, readme, index);
   checkIndexPolicy(index);
+  checkIndexSkillEntries(skillFiles, index);
 
   console.log("");
   console.log(`Skills: ${skillFiles.length}`);

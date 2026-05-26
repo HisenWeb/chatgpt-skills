@@ -1,8 +1,8 @@
 ---
 name: Skill 编写与仓库维护
-version: 0.1.3
+version: 0.1.4
 status: active
-last_updated: 2026-05-26
+last_updated: 2026-05-27
 scope: ChatGPT Skill 生成 / Skill 仓库维护 / 规则拆分 / 模板生成 / 交付包自检
 ---
 
@@ -368,16 +368,9 @@ scope: ...
 
 ### 2. 是否已有相近 Skill？
 
-必须检查当前已知 Skill：
+必须以当前 `SKILL_INDEX.md` 中列出的 Skill 为准，逐项检查是否已有相近 Skill。
 
-- `00-skill-authoring.md`
-- `01-control-reviewer.md`
-- `02-minimal-engineering-fix.md`
-- `04-handoff-regular.md`
-- `04a-goal-todolist.md`
-- `04b-handoff-distillation.md`
-
-以及用户后续仓库中已有的其他 Skill。
+不要在本 Skill 正文中维护固定 Skill 清单；新增、重命名或弃用 Skill 后，应由 `SKILL_INDEX.md` 承担当前路由清单职责。
 
 如果已有相近 Skill，优先修改已有文件，不新增。
 

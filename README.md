@@ -17,6 +17,7 @@ https://github.com/HisenWeb/chatgpt-skills
 2. 根据当前任务判断需要启用哪些 Skill。
 3. 只读取相关 Skill，不要全量读取所有文件。
 4. 读取后用一句话确认启用的 Skill 名称。
+5. 后续回答必须遵守已启用 Skill。
 
 当前窗口主题：
 〖填写当前主题〗
@@ -94,6 +95,7 @@ node scripts/doctor.mjs
 - `skills/`、`templates/` 目录；
 - README / SKILL_INDEX 中引用路径是否存在；
 - 所有 Skill / Template 是否被 README 和 SKILL_INDEX 引用；
+- `SKILL_INDEX.md` 中每个 Skill 条目是否包含必要字段；
 - Skill frontmatter 必填字段；
 - Skill 必要章节；
 - 检查 Skill 必要章节时忽略 fenced code block，避免示例结构造成假通过；

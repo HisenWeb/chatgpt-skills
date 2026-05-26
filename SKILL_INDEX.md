@@ -39,7 +39,7 @@
 
 路径：`scripts/doctor.mjs`
 
-用途：检查仓库结构一致性，避免新增、删除、重命名或弃用 Skill / Template 后漏改 `README.md` 或 `SKILL_INDEX.md`。检查 Skill 必要章节时会忽略 fenced code block，避免示例结构造成假通过。
+用途：检查仓库结构一致性，避免新增、删除、重命名或弃用 Skill / Template 后漏改 `README.md` 或 `SKILL_INDEX.md`。会校验 `SKILL_INDEX.md` 中每个 Skill 条目的必要字段；检查 Skill 必要章节时会忽略 fenced code block，避免示例结构造成假通过。
 
 建议运行时机：新增、删除、重命名或弃用 Skill / Template 后；修改 README / SKILL_INDEX 后；提交前。
 
