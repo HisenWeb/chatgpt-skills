@@ -30,7 +30,7 @@ https://github.com/HisenWeb/chatgpt-skills
 | `README.md` | 仓库用途、目录结构、维护原则和运行方式；不承载完整规则正文。 |
 | `SKILL_INDEX.md` | Skill / Template 路由索引；帮助按需选择文件；不承载完整规则正文。 |
 | `skills/` | 长期行为规则。 |
-| `templates/` | 可复制的任务启动文本。 |
+| `templates/` | 可复制的任务启动文本与结构化输出模板。 |
 | `scripts/doctor.mjs` | 结构一致性检查 gate。 |
 
 ## 当前结构
@@ -51,6 +51,7 @@ https://github.com/HisenWeb/chatgpt-skills
 │  ├─ todolist-init.md
 │  ├─ handoff-regular-current-window.md
 │  ├─ handoff-distill-from-chat-export.md
+│  ├─ handoff-evidence-pack.md
 │  ├─ new-window-read-handoff-file.md
 │  └─ new-window-read-handoff-clipboard.md
 └─ scripts/
@@ -64,9 +65,9 @@ https://github.com/HisenWeb/chatgpt-skills
 | `skills/00-skill-authoring.md` | Skill 编写与仓库维护 | 生成、修改、拆分、合并 Skill；维护 Template、README、SKILL_INDEX 和 doctor；检查交付包一致性。 |
 | `skills/01-control-reviewer.md` | 总控与质量守门 | 方案判断、风险识别、反 Yes-man、质量守门。 |
 | `skills/02-minimal-engineering-fix.md` | 工程最小改动修复 | 工程修复前的入口审计、配置语义判断、最小改动和验证输出。 |
-| `skills/04-handoff-regular.md` | 常规新窗口交接与 Handoff | 当前窗口可靠时生成当前状态快照；必要时同步已有 TodoList。 |
+| `skills/04-handoff-regular.md` | 常规新窗口交接与 Handoff | 当前窗口可靠时生成 `handoff-current.md` 和 `handoff-evidence.md`；必要时同步已有 TodoList。 |
 | `skills/04a-goal-todolist.md` | 目标锚定与 TodoList 初始化 | 持续任务进入主线推进后初始化或校正 `todolist.md`。 |
-| `skills/04b-handoff-distillation.md` | 中转窗口去毒蒸馏与 Handoff | 基于旧窗口材料生成干净的 `handoff-current.md`；必要时同步 TodoList。 |
+| `skills/04b-handoff-distillation.md` | 中转窗口去毒蒸馏与 Handoff | 基于旧窗口材料生成干净的 `handoff-current.md` 和 `handoff-evidence.md`；必要时同步 TodoList。 |
 
 详细触发条件、禁区和输出规则以各 Skill 正文为准；README 只保留概览。
 
@@ -76,10 +77,11 @@ https://github.com/HisenWeb/chatgpt-skills
 | --- | --- |
 | `templates/skill-authoring-request.md` | 请求生成、修改、拆分、合并 Skill，或维护 Skill 仓库结构。 |
 | `templates/todolist-init.md` | 在持续任务方向确定后初始化第一版 `todolist.md`。 |
-| `templates/handoff-regular-current-window.md` | 当前窗口仍可靠时生成常规 `handoff-current.md`。 |
-| `templates/handoff-distill-from-chat-export.md` | 中转窗口基于完整旧聊天记录生成新的 `handoff-current.md`。 |
-| `templates/new-window-read-handoff-file.md` | 新窗口读取上传的 `handoff-current.md` 和可选 `todolist.md`。 |
-| `templates/new-window-read-handoff-clipboard.md` | 新窗口读取粘贴的 `handoff-current.md` 和可选 `todolist.md`。 |
+| `templates/handoff-regular-current-window.md` | 当前窗口仍可靠时生成常规 `handoff-current.md` 和 `handoff-evidence.md`。 |
+| `templates/handoff-distill-from-chat-export.md` | 中转窗口基于完整旧聊天记录生成新的 `handoff-current.md` 和 `handoff-evidence.md`。 |
+| `templates/handoff-evidence-pack.md` | `handoff-evidence.md` 的结构模板，用于证据摘录、原始材料定位、图片证据卡和新窗口补充材料清单。 |
+| `templates/new-window-read-handoff-file.md` | 新窗口读取上传的 `handoff-current.md`、可选 `handoff-evidence.md` 和可选 `todolist.md`。 |
+| `templates/new-window-read-handoff-clipboard.md` | 新窗口读取粘贴的 `handoff-current.md`、可选 `handoff-evidence.md` 和可选 `todolist.md`。 |
 
 ## Doctor 脚本
 
