@@ -48,6 +48,7 @@ https://github.com/HisenWeb/chatgpt-skills
 │  └─ 04b-handoff-distillation.md
 ├─ templates/
 │  ├─ skill-authoring-request.md
+│  ├─ skill-trigger-prompt-generate.md
 │  ├─ todolist-init.md
 │  ├─ handoff-regular-current-window.md
 │  ├─ handoff-distill-from-chat-export.md
@@ -62,7 +63,7 @@ https://github.com/HisenWeb/chatgpt-skills
 
 | 路径 | 名称 | 用途 |
 | --- | --- | --- |
-| `skills/00-skill-authoring.md` | Skill 编写与仓库维护 | 生成、修改、拆分、合并 Skill；维护 Template、README、SKILL_INDEX 和 doctor；检查交付包一致性。 |
+| `skills/00-skill-authoring.md` | Skill 编写与仓库维护 | 生成、修改、拆分、合并 Skill；维护 Template、README、SKILL_INDEX、doctor 和触发提示词；检查交付包一致性。 |
 | `skills/01-control-reviewer.md` | 总控与质量守门 | 方案判断、风险识别、反 Yes-man、质量守门。 |
 | `skills/02-minimal-engineering-fix.md` | 工程最小改动修复 | 工程修复前的入口审计、配置语义判断、最小改动和验证输出。 |
 | `skills/04-handoff-regular.md` | 常规新窗口交接与 Handoff | 当前窗口可靠时生成 `handoff-current.md` 和 `handoff-evidence.md`；必要时同步已有 TodoList。 |
@@ -76,6 +77,7 @@ https://github.com/HisenWeb/chatgpt-skills
 | 路径 | 用途 |
 | --- | --- |
 | `templates/skill-authoring-request.md` | 请求生成、修改、拆分、合并 Skill，或维护 Skill 仓库结构。 |
+| `templates/skill-trigger-prompt-generate.md` | 为指定 Skill 生成精炼触发提示词，只负责稳定路由，不重复 Skill 正文规则。 |
 | `templates/todolist-init.md` | 在持续任务方向确定后初始化第一版 `todolist.md`。 |
 | `templates/handoff-regular-current-window.md` | 当前窗口仍可靠时生成常规 `handoff-current.md` 和 `handoff-evidence.md`。 |
 | `templates/handoff-distill-from-chat-export.md` | 中转窗口基于完整旧聊天记录生成新的 `handoff-current.md` 和 `handoff-evidence.md`。 |

@@ -55,9 +55,9 @@ node scripts/doctor.mjs
 
 - 路径：`skills/00-skill-authoring.md`
 - 名称：Skill 编写与仓库维护
-- 适用场景：生成、修改、拆分或合并 Skill；维护 `README.md` / `SKILL_INDEX.md` / Template / `scripts/doctor.mjs`；判断规则是否该进仓库；检查交付包一致性；识别 Skill 膨胀、重复或污染。
+- 适用场景：生成、修改、拆分或合并 Skill；维护 `README.md` / `SKILL_INDEX.md` / Template / `scripts/doctor.mjs`；生成或同步 Skill 触发提示词；判断规则是否该进仓库；检查交付包一致性；识别 Skill 膨胀、重复或污染。
 - 不适用场景：普通业务讨论；普通工程修复；普通 handoff 生成；当前窗口临时规则；已由更具体业务 Skill 接管且不涉及仓库维护。
-- 推荐模板：`templates/skill-authoring-request.md`
+- 推荐模板：`templates/skill-authoring-request.md`；生成触发提示词时可用 `templates/skill-trigger-prompt-generate.md`
 - 关系：元 Skill，用于维护本仓库中的其他 Skill；不替代具体业务 Skill。
 
 ### 01-control-reviewer.md
@@ -110,6 +110,7 @@ node scripts/doctor.mjs
 | 路径 | 用途 | 关联 Skill |
 | --- | --- | --- |
 | `templates/skill-authoring-request.md` | 请求生成、修改、拆分或合并 ChatGPT Skill，或维护 Skill 仓库结构。 | `skills/00-skill-authoring.md` |
+| `templates/skill-trigger-prompt-generate.md` | 为指定 Skill 生成精炼触发提示词；只负责稳定路由、按需读取和防误执行，不重复 Skill 正文规则。 | `skills/00-skill-authoring.md` |
 | `templates/todolist-init.md` | 在持续任务方向确定后初始化第一版 `todolist.md`。 | `skills/04a-goal-todolist.md` |
 | `templates/handoff-regular-current-window.md` | 当前窗口仍可靠时生成常规 `handoff-current.md` 和 `handoff-evidence.md`；已启用 `todolist.md` 时同步更新 TodoList。 | `skills/04-handoff-regular.md` |
 | `templates/handoff-distill-from-chat-export.md` | 中转窗口基于完整旧聊天记录生成新的 `handoff-current.md` 和 `handoff-evidence.md`；可同步更新 TodoList。 | `skills/04b-handoff-distillation.md` |
