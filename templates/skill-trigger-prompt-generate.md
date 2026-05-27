@@ -31,3 +31,4 @@ https://github.com/HisenWeb/chatgpt-skills
 4. 输出以目标 Skill 规则为准。
 5. 如果目标 Skill 不适合做触发提示词，请说明原因，并给出更合适的启动方式。
 6. 最后简短说明哪些内容被刻意排除，以避免和 Skill 重复。
+```

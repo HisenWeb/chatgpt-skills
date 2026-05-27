@@ -23,12 +23,12 @@
 
 请基于当前窗口生成一组换窗口交接文件，并自动判断当前任务是否已经启用 todolist.md。
 
-默认输出：
+确认后默认输出：
 1. handoff-current.md：当前状态快照。
 2. handoff-evidence.md：证据摘录、原始材料定位卡、新窗口需补充材料清单。
 3. todolist.md：仅当当前任务已启用 todolist.md 且我提供了当前 todolist.md 时同步输出。
 
-先输出「Handoff 生成审核卡」：
+第一轮只输出「Handoff 生成审核卡」，不要直接生成文件：
 - 当前任务类型：生成 / 读取 / 评审 / 修改 / 不适用
 - 是否适合常规 handoff：是 / 否
 - 是否需要中转蒸馏：是 / 否
@@ -36,6 +36,8 @@
 - 是否需要生成 handoff-evidence.md：是 / 否
 - 是否缺少关键原始材料：是 / 否
 - 建议动作：直接生成 / 补充材料 / 改用中转蒸馏 / 本次只做评审
+
+我确认后，再按审核卡建议生成对应文件。
 
 自动识别规则：
 1. 如果我提供了当前 todolist.md，请在生成 handoff-current.md 和 handoff-evidence.md 的同时，按 04a-goal-todolist.md 的 TodoList 规则同步输出更新后的 todolist.md。

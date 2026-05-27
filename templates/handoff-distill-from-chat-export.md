@@ -19,7 +19,11 @@
 
 我会提供旧窗口完整聊天记录、旧 handoff、旧 todolist.md 或补充材料。请基于这些材料生成新的 handoff-current.md 和 handoff-evidence.md，并自动判断旧任务是否已经启用 todolist.md。
 
-默认输出：
+请先输出「中转蒸馏审核卡」，不要直接生成文件。审核卡只判断：材料是否完整、是否适合中转蒸馏、是否检测到 TodoList、是否缺少关键原始材料、建议动作。
+
+我确认后，再按审核卡建议生成对应文件。
+
+确认后默认输出：
 1. handoff-current.md：给新工作窗口继续使用的当前状态快照。
 2. handoff-evidence.md：从旧窗口材料中整理出的证据摘录、原始材料定位卡、新窗口需补充材料清单。
 3. todolist.md：仅当旧任务已启用 todolist.md 且我提供了旧 todolist.md 时同步输出。
