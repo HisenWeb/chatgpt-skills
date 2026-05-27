@@ -78,6 +78,15 @@ node scripts/doctor.mjs
 - 推荐模板：无固定模板。
 - 关系：与 `skills/01-control-reviewer.md` 有交集但不重复；具体代码修复优先采用本 Skill 的入口审计要求。
 
+### 03-github-research.md
+
+- 路径：`skills/03-github-research.md`
+- 名称：GitHub 项目调研与外部佐证复核
+- 适用场景：在 GitHub 上找现成项目、库、工具、插件、框架或模板；判断某个 GitHub 项目是否靠谱、活跃或适合使用；比较多个 GitHub 仓库；调研某类 GitHub 能力的主流实现；查找替代方案、同类项目或更轻量方案；需要以 GitHub 仓库为主证据并允许外部网页佐证。
+- 不适用场景：泛互联网调研且主线不是 GitHub；新闻、政策、价格、论文、产品市场等非 GitHub 主题调研；普通翻译、改写、格式整理；当前项目代码修复；Skill 仓库维护；用户明确禁止联网或外部资料搜索。
+- 推荐模板：`templates/github-research.md`
+- 关系：GitHub 项目调研专用 Skill；可与 `skills/01-control-reviewer.md` 配合做方案判断，但本 Skill 只负责证据收集、需求澄清、候选发现、轻重分桶和可靠性复核；调研启动卡、搜索路径记录和证据卡结构下沉到 Template；不替代工程修复、Skill 仓库维护或 handoff Skill。
+
 ### 04-handoff-regular.md
 
 - 路径：`skills/04-handoff-regular.md`
@@ -112,6 +121,7 @@ node scripts/doctor.mjs
 | `templates/skill-authoring-request.md` | 请求生成、修改、拆分、合并或评审 ChatGPT Skill，或维护 Skill 仓库结构。 | `skills/00-skill-authoring.md` |
 | `templates/skill-trigger-prompt-generate.md` | 为指定 Skill 生成精炼触发提示词；只负责稳定路由、按需读取和防误执行，不重复 Skill 正文规则。 | `skills/00-skill-authoring.md` |
 | `templates/skill-delivery-checklist.md` | 多文件交付、zip、完整文件包 / patch-only 区分与交付一致性自检。 | `skills/00-skill-authoring.md` |
+| `templates/github-research.md` | GitHub 项目调研的启动确认卡、搜索路径记录、候选分桶、项目证据卡和输出结构。 | `skills/03-github-research.md` |
 | `templates/todolist-init.md` | 在持续任务方向确定后初始化第一版 `todolist.md`。 | `skills/04a-goal-todolist.md` |
 | `templates/handoff-regular-current-window.md` | 当前窗口仍可靠时生成常规 `handoff-current.md` 和 `handoff-evidence.md`；已启用 `todolist.md` 时同步更新 TodoList。 | `skills/04-handoff-regular.md` |
 | `templates/handoff-distill-from-chat-export.md` | 中转窗口基于完整旧聊天记录生成新的 `handoff-current.md` 和 `handoff-evidence.md`；可同步更新 TodoList。 | `skills/04b-handoff-distillation.md` |
