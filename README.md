@@ -46,7 +46,8 @@ https://github.com/HisenWeb/chatgpt-skills
 │  ├─ 03-github-research.md
 │  ├─ 04-handoff-regular.md
 │  ├─ 04a-goal-todolist.md
-│  └─ 04b-handoff-distillation.md
+│  ├─ 04b-handoff-distillation.md
+│  └─ 08-html-prototype-generator.md
 ├─ templates/
 │  ├─ skill-authoring-request.md
 │  ├─ skill-trigger-prompt-generate.md
@@ -57,7 +58,8 @@ https://github.com/HisenWeb/chatgpt-skills
 │  ├─ handoff-distill-from-chat-export.md
 │  ├─ handoff-evidence-pack.md
 │  ├─ new-window-read-handoff-file.md
-│  └─ new-window-read-handoff-clipboard.md
+│  ├─ new-window-read-handoff-clipboard.md
+│  └─ html-prototype-generator-trigger.md
 └─ scripts/
    └─ doctor.mjs
 ```
@@ -73,6 +75,7 @@ https://github.com/HisenWeb/chatgpt-skills
 | `skills/04-handoff-regular.md` | 常规新窗口交接与 Handoff | 当前窗口可靠时生成 `handoff-current.md` 和 `handoff-evidence.md`；必要时同步已有 TodoList。 |
 | `skills/04a-goal-todolist.md` | 目标锚定与 TodoList 初始化 | 持续任务进入主线推进后初始化或校正 `todolist.md`。 |
 | `skills/04b-handoff-distillation.md` | 中转窗口去毒蒸馏与 Handoff | 基于旧窗口材料生成干净的 `handoff-current.md` 和 `handoff-evidence.md`；必要时同步 TodoList。 |
+| `skills/08-html-prototype-generator.md` | HTML 低保真原型生成 | 根据需求、handoff、scope、brief 或页面规格生成可本地预览的 HTML/CSS/JS 低保真原型；只输出实际原型预览入口，不生成压缩包。 |
 
 详细触发条件、禁区和输出规则以各 Skill 正文为准；README 只保留概览。
 
@@ -90,6 +93,7 @@ https://github.com/HisenWeb/chatgpt-skills
 | `templates/handoff-evidence-pack.md` | `handoff-evidence.md` 的结构模板，用于完整可迁移证据、原始材料定位、图片证据卡和证据缺口。 |
 | `templates/new-window-read-handoff-file.md` | 新窗口读取上传的 handoff 交接材料，支持 zip 交接包、单独 md 文件、可选 TodoList 与证据补充材料。 |
 | `templates/new-window-read-handoff-clipboard.md` | 新窗口读取粘贴的 `handoff-current.md`、可选 `handoff-evidence.md` 和可选 `todolist.md`。 |
+| `templates/html-prototype-generator-trigger.md` | 手动触发 HTML 低保真原型生成 Skill；只输出实际原型预览入口，不生成压缩包。 |
 
 ## Doctor 脚本
 

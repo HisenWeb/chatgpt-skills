@@ -114,6 +114,15 @@ node scripts/doctor.mjs
 - 推荐模板：`templates/handoff-distill-from-chat-export.md`
 - 关系：三窗口迁移流程中的中转版；不负责继续业务执行；输出 `handoff-current.md` 和 `handoff-evidence.md`；如任务启用 TodoList，则引用 `skills/04a-goal-todolist.md` 的语义规则；`templates/handoff-evidence-pack.md` 提供完整可迁移证据结构。
 
+### 08-html-prototype-generator.md
+
+- 路径：`skills/08-html-prototype-generator.md`
+- 名称：HTML 低保真原型生成
+- 适用场景：根据已收敛的需求、页面规格、交接材料或既有原型，生成可本地预览的 HTML/CSS/JS 低保真原型；用户希望直接由 ChatGPT 生成实际原型文件。
+- 不适用场景：页面范围尚未收敛的产品讨论；图片参考图生成；Prompt / Skill / 文档评审；生产级前端工程、组件库或后端系统开发。
+- 推荐模板：`templates/html-prototype-generator-trigger.md`
+- 关系：原型生成专用 Skill；只规定材料识别、生成策略、实现边界和预览交付，不写死具体项目文件名、页面名或目录名；如需方案判断可配合 `skills/01-control-reviewer.md`，修细节时遵守 `skills/02-minimal-engineering-fix.md` 的最小改动要求。
+
 ## Template 列表
 
 | 路径 | 用途 | 关联 Skill |
@@ -128,6 +137,7 @@ node scripts/doctor.mjs
 | `templates/handoff-evidence-pack.md` | `handoff-evidence.md` 的结构模板；整理完整可迁移证据、原始材料定位卡、图片证据卡、未完整携带证据和待复核缺口。 | `skills/04-handoff-regular.md` / `skills/04b-handoff-distillation.md` |
 | `templates/new-window-read-handoff-file.md` | 新工作窗口读取上传的 handoff 交接材料，支持 zip 交接包、单独 md 文件、可选 TodoList 与证据补充材料。 | 无需读取生成类 Skill。 |
 | `templates/new-window-read-handoff-clipboard.md` | 新工作窗口读取粘贴的 `handoff-current.md`、可选 `handoff-evidence.md` 和可选 `todolist.md`。 | 无需读取生成类 Skill。 |
+| `templates/html-prototype-generator-trigger.md` | 手动触发 HTML 低保真原型生成 Skill；只输出实际原型预览入口，不生成压缩包，不套固定项目文件名。 | `skills/08-html-prototype-generator.md` |
 
 ## 新增 Skill 时的索引更新要求
 
