@@ -11,7 +11,7 @@
 - `README.md`：仓库用途、目录结构、维护原则和运行方式。
 - `SKILL_INDEX.md`：路由索引，只帮助选择 Skill / Template。
 - `skills/`：长期行为规则正文。
-- `templates/`：可复制的任务启动文本与结构化输出模板。
+- `templates/`：可复制的任务启动文本、结构模板与低频 checklist。
 - `scripts/doctor.mjs`：结构一致性检查 gate。
 
 不要把完整 Skill 正文塞进 README 或本索引。
@@ -31,7 +31,7 @@
 1. 先读本文件。
 2. 判断当前任务类型。
 3. 只读取相关 Skill。
-4. 如需启动固定任务，再读取相关 Template。
+4. 如需启动固定任务、结构模板或低频 checklist，再读取相关 Template。
 5. 不要为了“完整”全量读取所有 Skill。
 6. 如果当前任务只是一次性临时要求，不要默认沉淀为长期 Skill。
 
@@ -55,10 +55,10 @@ node scripts/doctor.mjs
 
 - 路径：`skills/00-skill-authoring.md`
 - 名称：Skill 编写与仓库维护
-- 适用场景：生成、修改、拆分或合并 Skill；维护 `README.md` / `SKILL_INDEX.md` / Template / `scripts/doctor.mjs`；生成或同步 Skill 触发提示词；判断规则是否该进仓库；检查交付包一致性；识别 Skill 膨胀、重复或污染。
+- 适用场景：生成、修改、拆分、合并或弃用 Skill；维护 `README.md` / `SKILL_INDEX.md` / Template / `scripts/doctor.mjs`；生成或同步 Skill 触发提示词；判断规则是否该进仓库；识别 Skill 膨胀、重复或污染；生成交付包时做边界判断。
 - 不适用场景：普通业务讨论；普通工程修复；普通 handoff 生成；当前窗口临时规则；已由更具体业务 Skill 接管且不涉及仓库维护。
-- 推荐模板：`templates/skill-authoring-request.md`；生成触发提示词时可用 `templates/skill-trigger-prompt-generate.md`
-- 关系：元 Skill，用于维护本仓库中的其他 Skill；不替代具体业务 Skill。
+- 推荐模板：`templates/skill-authoring-request.md`；生成触发提示词时可用 `templates/skill-trigger-prompt-generate.md`；多文件打包交付时可用 `templates/skill-delivery-checklist.md`
+- 关系：元 Skill，用于维护本仓库中的其他 Skill；不替代具体业务 Skill；交付包和触发提示词细则应下沉到 Template。
 
 ### 01-control-reviewer.md
 
@@ -109,8 +109,9 @@ node scripts/doctor.mjs
 
 | 路径 | 用途 | 关联 Skill |
 | --- | --- | --- |
-| `templates/skill-authoring-request.md` | 请求生成、修改、拆分或合并 ChatGPT Skill，或维护 Skill 仓库结构。 | `skills/00-skill-authoring.md` |
+| `templates/skill-authoring-request.md` | 请求生成、修改、拆分、合并或评审 ChatGPT Skill，或维护 Skill 仓库结构。 | `skills/00-skill-authoring.md` |
 | `templates/skill-trigger-prompt-generate.md` | 为指定 Skill 生成精炼触发提示词；只负责稳定路由、按需读取和防误执行，不重复 Skill 正文规则。 | `skills/00-skill-authoring.md` |
+| `templates/skill-delivery-checklist.md` | 多文件交付、zip、完整文件包 / patch-only 区分与交付一致性自检。 | `skills/00-skill-authoring.md` |
 | `templates/todolist-init.md` | 在持续任务方向确定后初始化第一版 `todolist.md`。 | `skills/04a-goal-todolist.md` |
 | `templates/handoff-regular-current-window.md` | 当前窗口仍可靠时生成常规 `handoff-current.md` 和 `handoff-evidence.md`；已启用 `todolist.md` 时同步更新 TodoList。 | `skills/04-handoff-regular.md` |
 | `templates/handoff-distill-from-chat-export.md` | 中转窗口基于完整旧聊天记录生成新的 `handoff-current.md` 和 `handoff-evidence.md`；可同步更新 TodoList。 | `skills/04b-handoff-distillation.md` |
@@ -129,4 +130,4 @@ node scripts/doctor.mjs
 - `README.md` 必须同步保持仓库用途、当前结构、文件清单、Doctor 脚本说明、推荐读取方式和维护原则准确；
 - `SKILL_INDEX.md` 只负责路由，不承载完整规则正文；
 - Skill 正文承载长期行为规则；
-- Template 承载可复制启动文本或结构化输出模板。
+- Template 承载可复制启动文本、结构模板或低频 checklist。

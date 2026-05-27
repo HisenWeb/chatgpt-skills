@@ -30,7 +30,7 @@ https://github.com/HisenWeb/chatgpt-skills
 | `README.md` | 仓库用途、目录结构、维护原则和运行方式；不承载完整规则正文。 |
 | `SKILL_INDEX.md` | Skill / Template 路由索引；帮助按需选择文件；不承载完整规则正文。 |
 | `skills/` | 长期行为规则。 |
-| `templates/` | 可复制的任务启动文本与结构化输出模板。 |
+| `templates/` | 可复制的任务启动文本、结构模板与低频 checklist。 |
 | `scripts/doctor.mjs` | 结构一致性检查 gate。 |
 
 ## 当前结构
@@ -49,6 +49,7 @@ https://github.com/HisenWeb/chatgpt-skills
 ├─ templates/
 │  ├─ skill-authoring-request.md
 │  ├─ skill-trigger-prompt-generate.md
+│  ├─ skill-delivery-checklist.md
 │  ├─ todolist-init.md
 │  ├─ handoff-regular-current-window.md
 │  ├─ handoff-distill-from-chat-export.md
@@ -63,7 +64,7 @@ https://github.com/HisenWeb/chatgpt-skills
 
 | 路径 | 名称 | 用途 |
 | --- | --- | --- |
-| `skills/00-skill-authoring.md` | Skill 编写与仓库维护 | 生成、修改、拆分、合并 Skill；维护 Template、README、SKILL_INDEX、doctor 和触发提示词；检查交付包一致性。 |
+| `skills/00-skill-authoring.md` | Skill 编写与仓库维护 | 生成、修改、拆分、合并 Skill；维护 Template、README、SKILL_INDEX、doctor 和触发提示词；判断仓库边界并防止规则膨胀。 |
 | `skills/01-control-reviewer.md` | 总控与质量守门 | 方案判断、风险识别、反 Yes-man、质量守门。 |
 | `skills/02-minimal-engineering-fix.md` | 工程最小改动修复 | 工程修复前的入口审计、配置语义判断、最小改动和验证输出。 |
 | `skills/04-handoff-regular.md` | 常规新窗口交接与 Handoff | 当前窗口可靠时生成 `handoff-current.md` 和 `handoff-evidence.md`；必要时同步已有 TodoList。 |
@@ -76,8 +77,9 @@ https://github.com/HisenWeb/chatgpt-skills
 
 | 路径 | 用途 |
 | --- | --- |
-| `templates/skill-authoring-request.md` | 请求生成、修改、拆分、合并 Skill，或维护 Skill 仓库结构。 |
+| `templates/skill-authoring-request.md` | 请求生成、修改、拆分、合并或评审 Skill，或维护 Skill 仓库结构。 |
 | `templates/skill-trigger-prompt-generate.md` | 为指定 Skill 生成精炼触发提示词，只负责稳定路由，不重复 Skill 正文规则。 |
+| `templates/skill-delivery-checklist.md` | 多文件交付、zip、完整文件包 / patch-only 区分与交付一致性自检。 |
 | `templates/todolist-init.md` | 在持续任务方向确定后初始化第一版 `todolist.md`。 |
 | `templates/handoff-regular-current-window.md` | 当前窗口仍可靠时生成常规 `handoff-current.md` 和 `handoff-evidence.md`。 |
 | `templates/handoff-distill-from-chat-export.md` | 中转窗口基于完整旧聊天记录生成新的 `handoff-current.md` 和 `handoff-evidence.md`。 |
@@ -112,6 +114,7 @@ Doctor 是结构一致性 gate，不替代语义评审。
 1. 先读 `SKILL_INDEX.md`，再按需读取相关 Skill。
 2. Skill 不是越多越好，默认优先更新已有 Skill 或新增 Template。
 3. `README.md` 只做仓库概览，`SKILL_INDEX.md` 只做路由索引，Skill 正文才承载规则。
-4. 不把当前窗口临时偏好、单项目细节或未验证流程写入长期 Skill。
-5. 新增、删除、重命名或弃用 Skill / Template 时，必须同步检查 README、SKILL_INDEX、相关模板和 `scripts/doctor.mjs`。
-6. 提交前运行 `node scripts/doctor.mjs`。
+4. Template 承载启动 Prompt、结构模板和低频 checklist，不应变成第二份 Skill。
+5. 不把当前窗口临时偏好、单项目细节或未验证流程写入长期 Skill。
+6. 新增、删除、重命名或弃用 Skill / Template 时，必须同步检查 README、SKILL_INDEX、相关模板和 `scripts/doctor.mjs`。
+7. 提交前运行 `node scripts/doctor.mjs`。
