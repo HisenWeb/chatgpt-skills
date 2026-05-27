@@ -1,6 +1,6 @@
 ---
 name: Skill 编写与仓库维护
-version: 0.1.5
+version: 0.1.6
 status: active
 last_updated: 2026-05-27
 scope: ChatGPT Skill 生成 / Skill 仓库维护 / 规则拆分 / 模板生成 / 触发提示词同步 / 交付包自检
@@ -612,15 +612,20 @@ Template 应该说明：
 
 触发提示词必须精炼，只保留稳定触发所需的最小约束。
 
-必须包含：
+生成触发提示词前，必须先区分使用场景：
 
-- 读取 `SKILL_INDEX.md`；
+- `GitHub 冷启动版`：用于全新窗口，模型尚未读取仓库。可以包含读取 GitHub 仓库、先读 `SKILL_INDEX.md`、再按需读取目标 Skill / Template 的链路。
+- `已加载仓库轻量版`：用于当前窗口、Project Source、插件命令或用户已提供仓库上下文的场景。不要重复 GitHub 读取链路，只保留目标 Skill 路由和任务边界。
+- `不确定场景`：不要强行二选一，可以输出两个版本，并标明适用条件。
+
+触发提示词应按场景选择性包含：
+
 - 判断是否适合启用目标 Skill；
 - 不适合时停止并说明原因；
-- 适合时只读取目标 Skill 和直接关联 Skill / Template；
+- 适合时只读取或使用必要 Skill / Template；
 - 读取后用一句话确认实际启用内容；
 - 当前任务边界；
-- 输出以已启用 Skill 的规则为准。
+- 后续输出以已启用 Skill 的规则为准。
 
 禁止包含：
 
@@ -628,7 +633,8 @@ Template 应该说明：
 - 目标 Skill 的完整禁止事项；
 - 目标 Skill 的长流程细节；
 - 与路由无关的业务规则；
-- 会和目标 Skill 正文产生漂移的重复规则。
+- 会和目标 Skill 正文产生漂移的重复规则；
+- 在普通 Template 中反向写入 GitHub 冷启动读取链路。
 
 ### 4. 触发提示词输出格式
 
@@ -659,6 +665,10 @@ Template 应该说明：
 
 ### 5. 与 Template 的关系
 
+Template 不是冷启动器，不应自己读取 GitHub 仓库或重新索引 Skill。
+
+`templates/skill-trigger-prompt-generate.md` 只用于在本 Skill 已启用后收集目标 Skill、使用场景和约束，再生成触发提示词；它本身不承载 GitHub 冷启动链路。
+
 如果某个触发提示词会长期复用，应优先写入或更新对应 Template，而不是只在聊天中输出临时 Prompt。
 
 如果用户只是临时请求一条触发提示词，可以只输出聊天版；但必须提醒用户这不是长期 Template，后续若要固定应进入 `templates/` 并同步 README / SKILL_INDEX。
@@ -687,6 +697,7 @@ Template 应该说明：
 - 禁止在用户提供 GitHub 仓库、PR、Issue 或文件链接并要求读取 / 评审时，绕过 GitHub 工具或等价可验证读取方式直接给仓库事实结论。
 - 禁止 Skill / Template 变更影响触发方式时，最终回答不输出触发提示词同步检查。
 - 禁止把触发提示词写成第二份 Skill。
+- 禁止把普通 Template 写成 GitHub 冷启动器。
 - 禁止 Skill 正文已更新，但触发提示词仍保留旧产物、旧文件名、旧触发条件或旧读取链路。
 
 ## 默认回答风格
