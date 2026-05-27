@@ -25,7 +25,7 @@
 要求：
 1. 本次是生成 handoff，不是评审 Prompt / 模板 / 流程文本；如果判断不是生成任务，请停止并说明原因。
 2. 先输出「Handoff 生成审核卡」，不要直接生成文件。
-3. 审核卡只判断：是否适合常规 handoff、是否需要中转蒸馏、是否检测到 TodoList、是否缺少关键原始材料、是否能生成完整 handoff-evidence.md、建议动作。
+3. 审核卡只判断：是否适合常规 handoff、是否需要中转蒸馏、是否检测到 TodoList、当前窗口可迁移证据是否足够生成 handoff-evidence.md、下一窗口继续工作是否缺关键外部材料、需补充材料、建议动作。
 4. 我确认后，再按审核卡建议生成：
    - handoff-current.md
    - handoff-evidence.md
