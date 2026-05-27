@@ -126,7 +126,7 @@ node scripts/doctor.mjs
 | `templates/handoff-regular-current-window.md` | 当前窗口仍可靠时生成常规 `handoff-current.md` 和 `handoff-evidence.md`；已启用 `todolist.md` 时同步更新 TodoList。 | `skills/04-handoff-regular.md` |
 | `templates/handoff-distill-from-chat-export.md` | 中转窗口基于完整旧聊天记录生成新的 `handoff-current.md` 和 `handoff-evidence.md`；可同步更新 TodoList。 | `skills/04b-handoff-distillation.md` |
 | `templates/handoff-evidence-pack.md` | `handoff-evidence.md` 的结构模板；整理完整可迁移证据、原始材料定位卡、图片证据卡、未完整携带证据和待复核缺口。 | `skills/04-handoff-regular.md` / `skills/04b-handoff-distillation.md` |
-| `templates/new-window-read-handoff-file.md` | 新工作窗口读取上传的 `handoff-current.md`、可选 `handoff-evidence.md` 和可选 `todolist.md`。 | 无需读取生成类 Skill。 |
+| `templates/new-window-read-handoff-file.md` | 新工作窗口读取上传的 handoff 交接材料，支持 zip 交接包、单独 md 文件、可选 TodoList 与证据补充材料。 | 无需读取生成类 Skill。 |
 | `templates/new-window-read-handoff-clipboard.md` | 新工作窗口读取粘贴的 `handoff-current.md`、可选 `handoff-evidence.md` 和可选 `todolist.md`。 | 无需读取生成类 Skill。 |
 
 ## 新增 Skill 时的索引更新要求
