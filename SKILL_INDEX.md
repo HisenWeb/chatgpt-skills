@@ -82,10 +82,10 @@ node scripts/doctor.mjs
 
 - 路径：`skills/04-handoff-regular.md`
 - 名称：常规新窗口交接与 Handoff
-- 适用场景：当前窗口主题集中且仍可靠；普通换窗口；需要生成当前状态快照；需要生成 `handoff-evidence.md`；任务已启用 `todolist.md` 时同步更新 TodoList。
+- 适用场景：当前窗口主题集中且仍可靠；普通换窗口；需要生成当前状态快照；需要生成 `handoff-evidence.md`；需要明确新窗口补证 gate；任务已启用 `todolist.md` 时同步更新 TodoList。
 - 不适用场景：旧窗口很长、很乱或跨主题严重；用户认为旧窗口已降智、复读、顺从或越改越乱；需要从完整旧聊天记录做去毒蒸馏；一次性问答；新窗口读取已有 handoff；评审或修改 handoff Skill / Template / Prompt。
 - 推荐模板：`templates/handoff-regular-current-window.md`
-- 关系：常规版生成 `handoff-current.md` 和 `handoff-evidence.md`；如果任务已启用 TodoList，引用 `skills/04a-goal-todolist.md` 的语义规则；`templates/handoff-evidence-pack.md` 提供证据包结构。
+- 关系：常规版生成 `handoff-current.md` 和 `handoff-evidence.md`；如果任务已启用 TodoList，引用 `skills/04a-goal-todolist.md` 的语义规则；`templates/handoff-evidence-pack.md` 提供完整可迁移证据结构。
 
 ### 04a-goal-todolist.md
 
@@ -100,10 +100,10 @@ node scripts/doctor.mjs
 
 - 路径：`skills/04b-handoff-distillation.md`
 - 名称：中转窗口去毒蒸馏与 Handoff
-- 适用场景：用户明确说明这是中转窗口；上传或粘贴完整旧聊天记录；需要从旧窗口材料生成 `handoff-current.md` 和 `handoff-evidence.md`；需要剔除 AI 脑补、错误尝试、顺从性结论、临时妥协；旧任务已启用 `todolist.md` 时同步更新 TodoList。
+- 适用场景：用户明确说明这是中转窗口；上传或粘贴完整旧聊天记录；需要从旧窗口材料生成 `handoff-current.md` 和 `handoff-evidence.md`；需要剔除 AI 脑补、错误尝试、顺从性结论、临时妥协；需要明确新窗口补证 gate；旧任务已启用 `todolist.md` 时同步更新 TodoList。
 - 不适用场景：当前窗口只是普通轻量换窗；不需要读取完整旧聊天记录；当前窗口仍可靠；用户只是想继续业务执行；新窗口读取已有 handoff；评审或修改 handoff Skill / Template / Prompt。
 - 推荐模板：`templates/handoff-distill-from-chat-export.md`
-- 关系：三窗口迁移流程中的中转版；不负责继续业务执行；输出 `handoff-current.md` 和 `handoff-evidence.md`；如任务启用 TodoList，则引用 `skills/04a-goal-todolist.md` 的语义规则；`templates/handoff-evidence-pack.md` 提供证据包结构。
+- 关系：三窗口迁移流程中的中转版；不负责继续业务执行；输出 `handoff-current.md` 和 `handoff-evidence.md`；如任务启用 TodoList，则引用 `skills/04a-goal-todolist.md` 的语义规则；`templates/handoff-evidence-pack.md` 提供完整可迁移证据结构。
 
 ## Template 列表
 
@@ -115,7 +115,7 @@ node scripts/doctor.mjs
 | `templates/todolist-init.md` | 在持续任务方向确定后初始化第一版 `todolist.md`。 | `skills/04a-goal-todolist.md` |
 | `templates/handoff-regular-current-window.md` | 当前窗口仍可靠时生成常规 `handoff-current.md` 和 `handoff-evidence.md`；已启用 `todolist.md` 时同步更新 TodoList。 | `skills/04-handoff-regular.md` |
 | `templates/handoff-distill-from-chat-export.md` | 中转窗口基于完整旧聊天记录生成新的 `handoff-current.md` 和 `handoff-evidence.md`；可同步更新 TodoList。 | `skills/04b-handoff-distillation.md` |
-| `templates/handoff-evidence-pack.md` | `handoff-evidence.md` 的结构模板；整理证据摘录、原始材料定位卡、图片证据卡、新窗口需补充材料清单。 | `skills/04-handoff-regular.md` / `skills/04b-handoff-distillation.md` |
+| `templates/handoff-evidence-pack.md` | `handoff-evidence.md` 的结构模板；整理完整可迁移证据、原始材料定位卡、图片证据卡、未完整携带证据和待复核缺口。 | `skills/04-handoff-regular.md` / `skills/04b-handoff-distillation.md` |
 | `templates/new-window-read-handoff-file.md` | 新工作窗口读取上传的 `handoff-current.md`、可选 `handoff-evidence.md` 和可选 `todolist.md`。 | 无需读取生成类 Skill。 |
 | `templates/new-window-read-handoff-clipboard.md` | 新工作窗口读取粘贴的 `handoff-current.md`、可选 `handoff-evidence.md` 和可选 `todolist.md`。 | 无需读取生成类 Skill。 |
 

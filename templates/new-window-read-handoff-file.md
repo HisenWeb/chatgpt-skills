@@ -21,12 +21,13 @@
 3. 如果我上传了 todolist.md，必须在 handoff-current.md 和 handoff-evidence.md 之后读取 todolist.md。
 4. 如果 handoff-current.md 声明存在 handoff-evidence.md，但我没有上传，请先提醒我补充；如果我明确说暂时没有，则继续时必须标记证据材料包缺失。
 5. 如果 handoff-current.md 中声明存在“配套 TodoList / todolist.md / 主线推进账本 / 大方向 TodoList”，但我没有上传 todolist.md，请先提醒我补充，不要只根据 handoff 的下一步继续。
-6. 如果三个文件冲突，先指出冲突，不要自行合并。
+6. 如果 handoff-evidence.md 标注了“未完整携带 / 需要外部补充”的关键证据，请先告诉我需要补充什么以及为什么。
+7. 如果三个文件冲突，先指出冲突，不要自行合并。
 
 确认内容：
 - handoff-current.md 中的当前上下文、最终目标、当前阶段目标、当前状态、已确认结论；
 - handoff-current.md 中必须遵守的用户偏好、长期规则、禁止事项 / 废弃路径、证据缺口或待确认问题；
-- handoff-evidence.md 中已摘录的证据、原始材料定位卡、图片证据卡、新窗口需要重新上传 / 补充的材料；
+- handoff-evidence.md 中完整可迁移证据、原始材料定位卡、图片证据卡、未完整携带证据和待复核缺口；
 - 如果存在 todolist.md，确认其中的最终目标、当前阶段目标、大方向 TodoList、当前 P0、下一步原子任务；
 - 后续按 todolist.md 推进主线，按 handoff-current.md 遵守上下文，按 handoff-evidence.md 处理证据和补充材料。
 
