@@ -99,11 +99,11 @@ node scripts/doctor.mjs
 ### 04a-goal-todolist.md
 
 - 路径：`skills/04a-goal-todolist.md`
-- 名称：目标锚定与 TodoList 初始化
-- 适用场景：用户明确要求初始化、修正或同步 `todolist.md`；需要建立“主线推进账本”“大方向 TodoList”或“防漂移 TodoList”；已存在 `todolist.md` 并需要在 Handoff 中同步更新。
-- 不适用场景：一次性问答；简单解释、翻译、改写；临时查资料；普通短窗口；当前任务没有持续推进需求；普通 handoff 但未启用过 `todolist.md`。
+- 名称：极简主线 TodoList 初始化
+- 适用场景：用户明确要求初始化、修正或同步 `todolist.md`；需要建立“主线 TodoList”“大方向 TodoList”或“防漂移 TodoList”；用户明确要求把若干主线事项当成 TodoList；已存在 `todolist.md` 并需要在 Handoff 中同步更新。
+- 不适用场景：一次性问答；简单解释、翻译、改写；临时查资料；普通短窗口；当前任务没有持续推进需求；普通 handoff 但未启用过 `todolist.md`；用户只是讨论长期方向但没有要求建立 TodoList。
 - 推荐模板：`templates/todolist-init.md`
-- 关系：Handoff 体系配套 Skill；不替代 `skills/04-handoff-regular.md` 或 `skills/04b-handoff-distillation.md`；不承载 `handoff-evidence.md` 语义。
+- 关系：Handoff 体系配套 Skill；只维护极简 checkbox 主线清单；不替代 `skills/04-handoff-regular.md` 或 `skills/04b-handoff-distillation.md`；不承载 `handoff-evidence.md` 语义；默认不使用 P0 / 阶段目标 / 支撑设施等复杂项目管理结构。
 
 ### 04b-handoff-distillation.md
 
@@ -131,7 +131,7 @@ node scripts/doctor.mjs
 | `templates/skill-trigger-prompt-generate.md` | 为指定 Skill 生成精炼触发提示词；只负责稳定路由、按需读取和防误执行，不重复 Skill 正文规则。 | `skills/00-skill-authoring.md` |
 | `templates/skill-delivery-checklist.md` | 多文件交付、zip、完整文件包 / patch-only 区分与交付一致性自检。 | `skills/00-skill-authoring.md` |
 | `templates/github-research.md` | GitHub 项目调研的启动确认卡、搜索路径记录、候选分桶、项目证据卡和输出结构。 | `skills/03-github-research.md` |
-| `templates/todolist-init.md` | 在持续任务方向确定后初始化第一版 `todolist.md`。 | `skills/04a-goal-todolist.md` |
+| `templates/todolist-init.md` | 在持续任务方向确定后初始化极简 `todolist.md` checkbox 主线清单。 | `skills/04a-goal-todolist.md` |
 | `templates/handoff-regular-current-window.md` | 当前窗口仍可靠时生成常规 `handoff-current.md` 和 `handoff-evidence.md`；已启用 `todolist.md` 时同步更新 TodoList。 | `skills/04-handoff-regular.md` |
 | `templates/handoff-distill-from-chat-export.md` | 中转窗口基于完整旧聊天记录生成新的 `handoff-current.md` 和 `handoff-evidence.md`；可同步更新 TodoList。 | `skills/04b-handoff-distillation.md` |
 | `templates/handoff-evidence-pack.md` | `handoff-evidence.md` 的结构模板；整理完整可迁移证据、原始材料定位卡、图片证据卡、未完整携带证据和待复核缺口。 | `skills/04-handoff-regular.md` / `skills/04b-handoff-distillation.md` |

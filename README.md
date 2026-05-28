@@ -73,7 +73,7 @@ https://github.com/HisenWeb/chatgpt-skills
 | `skills/02-minimal-engineering-fix.md` | 工程最小改动修复 | 工程修复前的入口审计、配置语义判断、最小改动和验证输出。 |
 | `skills/03-github-research.md` | GitHub 项目调研与外部佐证复核 | 以 GitHub 为主证据源，先澄清需求并收窄范围，再通过分类优先、多路候选发现、轻重分桶和多维复核筛选项目。 |
 | `skills/04-handoff-regular.md` | 常规新窗口交接与 Handoff | 当前窗口可靠时生成 `handoff-current.md` 和 `handoff-evidence.md`；必要时同步已有 TodoList。 |
-| `skills/04a-goal-todolist.md` | 目标锚定与 TodoList 初始化 | 持续任务进入主线推进后初始化或校正 `todolist.md`。 |
+| `skills/04a-goal-todolist.md` | 极简主线 TodoList 初始化 | 持续任务进入主线推进后，用 checkbox 清单初始化或校正 `todolist.md`，不扩展成复杂项目管理结构。 |
 | `skills/04b-handoff-distillation.md` | 中转窗口去毒蒸馏与 Handoff | 基于旧窗口材料生成干净的 `handoff-current.md` 和 `handoff-evidence.md`；必要时同步 TodoList。 |
 | `skills/08-html-prototype-generator.md` | HTML 低保真原型生成 | 根据需求、handoff、scope、brief 或页面规格生成可本地预览的 HTML/CSS/JS 低保真原型；只输出实际原型预览入口，不生成压缩包。 |
 
@@ -87,7 +87,7 @@ https://github.com/HisenWeb/chatgpt-skills
 | `templates/skill-trigger-prompt-generate.md` | 为指定 Skill 生成精炼触发提示词，只负责稳定路由，不重复 Skill 正文规则。 |
 | `templates/skill-delivery-checklist.md` | 多文件交付、zip、完整文件包 / patch-only 区分与交付一致性自检。 |
 | `templates/github-research.md` | GitHub 项目调研的启动确认卡、搜索路径记录、候选分桶、项目证据卡和输出结构。 |
-| `templates/todolist-init.md` | 在持续任务方向确定后初始化第一版 `todolist.md`。 |
+| `templates/todolist-init.md` | 在持续任务方向确定后初始化极简 `todolist.md` checkbox 主线清单。 |
 | `templates/handoff-regular-current-window.md` | 当前窗口仍可靠时生成常规 `handoff-current.md` 和 `handoff-evidence.md`。 |
 | `templates/handoff-distill-from-chat-export.md` | 中转窗口基于完整旧聊天记录生成新的 `handoff-current.md` 和 `handoff-evidence.md`。 |
 | `templates/handoff-evidence-pack.md` | `handoff-evidence.md` 的结构模板，用于完整可迁移证据、原始材料定位、图片证据卡和证据缺口。 |
