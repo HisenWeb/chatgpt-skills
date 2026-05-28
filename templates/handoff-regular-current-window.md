@@ -31,8 +31,9 @@
    - handoff-evidence.md
    - todolist.md（仅当当前任务已启用 todolist.md 且我提供了当前 todolist.md）
 5. 如果检测到应同步 todolist.md 但我没有提供，请先提醒我补充；如果我明确说本次只要 handoff，则记录 TodoList 未同步及影响。
-6. handoff-current.md 只写当前状态快照，不写聊天流水账。
-7. handoff-evidence.md 必须尽量保留完整可迁移证据，不要只写证据摘要。
-8. 如果缺少关键图片、附件、zip、日志、diff、Prompt 或本地文件，请在生成前或最终回答中直接提示我补充；不要默认额外生成独立补证清单文件。
-9. 如果同时输出多个文件，优先生成 zip。
+6. todolist.md 只能按极简 checkbox 主线清单同步，不要扩展成目标、阶段、优先级、验收矩阵、文件清单或命令清单。
+7. handoff-current.md 只写当前状态快照，不写聊天流水账。
+8. handoff-evidence.md 必须尽量保留完整可迁移证据，不要只写证据摘要。
+9. 如果缺少关键图片、附件、zip、日志、diff、Prompt 或本地文件，请在生成前或最终回答中直接提示我补充；不要默认额外生成独立补证清单文件。
+10. 如果同时输出多个文件，优先生成 zip。
 ```

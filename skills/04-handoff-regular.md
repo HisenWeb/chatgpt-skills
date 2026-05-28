@@ -1,9 +1,9 @@
 ---
 name: 常规新窗口交接与 Handoff
-version: 0.2.2
+version: 0.2.3
 status: active
-last_updated: 2026-05-27
-scope: 当前窗口交接 / 轻量换窗 / handoff-current.md / handoff-evidence.md / 完整可迁移证据 / 外部补证提示 / 已启用 todolist.md 的识别与同步
+last_updated: 2026-05-28
+scope: 当前窗口交接 / 轻量换窗 / handoff-current.md / handoff-evidence.md / 完整可迁移证据 / 外部补证提示 / 极简 todolist.md 的识别与同步
 ---
 
 # ChatGPT 专属 Skill：常规新窗口交接与 Handoff
@@ -17,7 +17,7 @@ scope: 当前窗口交接 / 轻量换窗 / handoff-current.md / handoff-evidence
 - 整理当前窗口继续工作的上下文；
 - 基于当前窗口生成 `handoff-current.md`；
 - 基于当前窗口生成 `handoff-evidence.md`；
-- 当前持续任务已经启用 `todolist.md`，需要在换窗口时同步更新。
+- 当前持续任务已经启用 `todolist.md`，需要在换窗口时同步 checkbox 主线清单。
 
 注意：触发意图不等于一定适合常规版。生成前必须先做适用性判断。
 
@@ -41,13 +41,13 @@ scope: 当前窗口交接 / 轻量换窗 / handoff-current.md / handoff-evidence
 
 - `handoff-current.md`：当前上下文快照；
 - `handoff-evidence.md`：完整可迁移证据归档、原始材料定位、证据缺口与复核要求；
-- `todolist.md`：仅当持续任务已经启用 TodoList 且用户提供了当前文件时同步更新。
+- `todolist.md`：仅当持续任务已经启用 TodoList 且用户提供了当前文件时，同步极简 checkbox 主线清单。
 
 `handoff-evidence.md` 不应该只是证据摘要。凡是当前窗口中可复制、可摘录、可迁移的关键文本证据，都应尽量完整写入，例如用户确认原话、关键 Prompt、关键日志、报错、diff、命令输出、文件片段、读取范围和结论依据。
 
 `handoff-evidence.md` 也不是原始附件替代品。图片、截图、zip、源码包、视频画面、本地路径指向文件等无法完整写入 Markdown 的材料，不能假设会自动迁移。遇到这类关键材料时，应优先在生成前或最终回答中提示用户补充；若用户明确要求继续生成，必须在 `handoff-evidence.md` 中标出“未完整携带 / 待补证”，但不要为此额外生成独立补证清单文件。
 
-本 Skill 不重新定义 TodoList 语义。涉及 TodoList 时，必须引用并遵守 `skills/04a-goal-todolist.md`。
+本 Skill 不重新定义 TodoList 语义。涉及 TodoList 时，必须引用并遵守 `skills/04a-goal-todolist.md`。当前 TodoList 语义为：`todolist.md` 只是一份极简 checkbox 主线清单，不扩展成项目管理文档。
 
 ## 工作原则
 
@@ -92,8 +92,8 @@ Handoff 生成审核卡：
 - 关键文件、路径、命令或名称；
 - 证据与复核要求；
 - 冲突 / 待确认；
-- 下一步原子任务；
-- 如已启用 TodoList，只摘要其当前主线、阶段、P0 和读取要求。
+- 下一步建议；
+- 如已启用 TodoList，只摘要 checkbox 主线清单和读取要求，不写复杂优先级、阶段拆解或项目管理结构。
 
 应删除或压缩：
 
@@ -128,7 +128,7 @@ Handoff 生成审核卡：
 
 - 用户提供了 `todolist.md`；
 - 当前窗口或旧 handoff 明确声明存在配套 TodoList；
-- 当前上下文持续引用 `todolist.md`、主线推进账本、大方向 TodoList、P0 等；
+- 当前上下文持续引用 `todolist.md`、主线 TodoList、大方向 TodoList、checkbox 清单等；
 - 用户明确要求按 TodoList 延续。
 
 处理规则：
@@ -137,6 +137,14 @@ Handoff 生成审核卡：
 - 检测到 TodoList 且用户提供了文件：按 `04a-goal-todolist.md` 同步输出更新后的 `todolist.md`；
 - 检测到 TodoList 但用户未提供文件：完整交接应先提醒补充；若用户明确只要 handoff，则可继续，但必须记录 TodoList 未同步及影响；
 - 当前请求只是评审或修改 handoff Skill / Template / Prompt 时，不进入 TodoList 同步流程。
+
+TodoList 同步只允许：
+
+- 根据用户明确确认或可靠证据，把 `[ ]` 改成 `[x]`；
+- 根据用户明确新增的主线事项，新增一条 checkbox；
+- 根据用户明确废弃的主线事项，删除该条，或保留并在最终回答中说明。
+
+禁止在 handoff 同步时把极简 TodoList 改写成目标、阶段、优先级、验收矩阵、文件清单或命令清单。
 
 ### 5. 区分事实、判断和待确认
 
@@ -158,7 +166,7 @@ handoff 中必须区分：
 2. 合并当前窗口新增的有效事实；
 3. 删除或归档已完成、已过期、已解决或无后续影响的内容；
 4. 不拼接旧文件原文；
-5. 新文件必须是当前状态快照、完整可迁移证据归档和主线推进账本，而不是历史合集。
+5. 新文件必须是当前状态快照、完整可迁移证据归档和极简主线清单，而不是历史合集。
 
 ## 推荐输出文件
 
@@ -199,8 +207,10 @@ todolist.md
 ## 10. 证据与复核要求
 ## 11. 冲突 / 待确认
 ## 12. 配套 TodoList（仅在已启用时保留）
-## 13. 下一步原子任务
+## 13. 下一步建议
 ```
+
+`配套 TodoList` 章节只摘要 checkbox 主线清单，不扩写成复杂结构。
 
 ### handoff-evidence.md
 
@@ -222,7 +232,7 @@ todolist.md
 - 少背景；
 - 不写流水账；
 - 明确不确定点；
-- 下一步必须原子化；
+- 下一步建议保持短小；
 - 证据正文放入 `handoff-evidence.md`；
 - 优先输出 `.md` 文件；多个文件优先 `.zip`。
 
@@ -237,4 +247,5 @@ todolist.md
 - 禁止强行创建不存在的 TodoList。
 - 禁止检测到已有 TodoList 却忽略同步或缺口说明。
 - 禁止在本 Skill 内重新定义 TodoList 语义。
+- 禁止把极简 TodoList 膨胀成复杂项目管理结构。
 - 禁止为了整洁隐藏冲突或证据缺口。
