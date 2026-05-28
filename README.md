@@ -78,7 +78,7 @@ https://github.com/HisenWeb/chatgpt-skills
 | `skills/04b-handoff-distillation.md` | 中转窗口去毒蒸馏与 Handoff | 基于旧窗口材料生成干净的 `handoff-current.md` 和 `handoff-evidence.md`；必要时同步 TodoList。 |
 | `skills/08-mvp-scope-confirmation.md` | MVP 业务范围说明 | 需求讨论后、生成原型前，把业务材料整理成页面和流程可理解的 MVP 业务范围说明。 |
 | `skills/09-html-prototype-generator.md` | HTML 原型生成 | 根据已收敛业务材料生成可本地预览的 HTML/CSS/JS 原型；内含页面板模式和可点击原型模式。 |
-| `skills/10-prototype-freeze-business-brief.md` | 原型冻结与业务说明交付 | 原型阶段结束后，整理 `prototype-business-brief.md` 和最终原型入口；只交业务和原型，不制定开发方案。 |
+| `skills/10-prototype-freeze-business-brief.md` | 原型冻结与业务说明交付 | 原型阶段结束后，固定拆分生成业务说明文档集与最终原型文件；只交业务和原型，不制定开发方案。 |
 
 详细触发条件、禁区和输出规则以各 Skill 正文为准；README 只保留概览。
 
