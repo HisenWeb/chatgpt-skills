@@ -114,14 +114,32 @@ node scripts/doctor.mjs
 - 推荐模板：`templates/handoff-distill-from-chat-export.md`
 - 关系：三窗口迁移流程中的中转版；不负责继续业务执行；输出 `handoff-current.md` 和 `handoff-evidence.md`；如任务启用 TodoList，则引用 `skills/04a-goal-todolist.md` 的语义规则；`templates/handoff-evidence-pack.md` 提供完整可迁移证据结构。
 
-### 08-html-prototype-generator.md
+### 08-mvp-scope-confirmation.md
 
-- 路径：`skills/08-html-prototype-generator.md`
-- 名称：HTML 低保真原型生成
-- 适用场景：根据已收敛的需求、页面规格、交接材料或既有原型，生成可本地预览的 HTML/CSS/JS 低保真原型；用户希望直接由 ChatGPT 生成实际原型文件。
-- 不适用场景：页面范围尚未收敛的产品讨论；图片参考图生成；Prompt / Skill / 文档评审；生产级前端工程、组件库或后端系统开发。
-- 推荐模板：`templates/html-prototype-generator-trigger.md`
-- 关系：原型生成专用 Skill；只规定材料识别、生成策略、实现边界和预览交付，不写死具体项目文件名、页面名或目录名；如需方案判断可配合 `skills/01-control-reviewer.md`，修细节时遵守 `skills/02-minimal-engineering-fix.md` 的最小改动要求。
+- 路径：`skills/08-mvp-scope-confirmation.md`
+- 名称：MVP 业务范围说明
+- 适用场景：需求讨论、头脑风暴、旧窗口交接或业务草稿之后，准备生成原型前，需要把业务场景、用户流程、页面含义、关键状态、业务规则和待确认问题整理成可原型化输入。
+- 不适用场景：还在完全自由探索方向；已经有清晰页面规格只需生成原型；正在修已有原型；原型已最终确认只需业务说明交付；Skill 仓库维护。
+- 推荐模板：无固定模板。
+- 关系：原型前业务收敛 Skill；不生成 HTML；输出可进入 `skills/09-html-prototype-generator.md` 的业务输入；不替代总控、开发计划或后续实现判断。
+
+### 09-html-prototype-generator.md
+
+- 路径：`skills/09-html-prototype-generator.md`
+- 名称：HTML 原型生成
+- 适用场景：根据已收敛业务材料、页面规格、handoff、scope、brief 或 PRD 生成可本地预览的 HTML/CSS/JS 原型；包括页面板模式和可点击原型模式；也适用于已有 HTML 原型的最小改动修正。
+- 不适用场景：业务范围尚未收敛；只是产品方向讨论；只是要图片参考图；原型冻结后的业务说明交付；生产级前端工程、组件库或后端系统开发；Skill 仓库维护。
+- 推荐模板：无固定模板。
+- 关系：原型生成专用 Skill；承接 `skills/08-mvp-scope-confirmation.md` 的业务输入；生成后的最终原型可进入 `skills/10-prototype-freeze-business-brief.md`；不绑定具体项目文件名、目录名、执行工具或开发流程。
+
+### 10-prototype-freeze-business-brief.md
+
+- 路径：`skills/10-prototype-freeze-business-brief.md`
+- 名称：原型冻结与业务说明交付
+- 适用场景：页面板或可点击原型已基本确认，用户希望停止原型阶段修改，整理 `prototype-business-brief.md` 和最终原型入口，让后续实现者理解业务和原型。
+- 不适用场景：业务范围还不清；页面结构、状态归属、主流程或点击关系还没确认；用户只是继续修原型；用户要求写代码、技术方案、开发计划、组件拆分、API 设计或执行端流程。
+- 推荐模板：无固定模板。
+- 关系：原型后的业务说明交付 Skill；只交业务和原型，不制定开发方案；不绑定任何具体执行工具、规格框架或 agent 工作流。
 
 ## Template 列表
 
@@ -133,11 +151,10 @@ node scripts/doctor.mjs
 | `templates/github-research.md` | GitHub 项目调研的启动确认卡、搜索路径记录、候选分桶、项目证据卡和输出结构。 | `skills/03-github-research.md` |
 | `templates/todolist-init.md` | 在持续任务方向确定后初始化极简 `todolist.md` checkbox 主线清单。 | `skills/04a-goal-todolist.md` |
 | `templates/handoff-regular-current-window.md` | 当前窗口仍可靠时生成常规 `handoff-current.md` 和 `handoff-evidence.md`；已启用 `todolist.md` 时同步更新 TodoList。 | `skills/04-handoff-regular.md` |
-| `templates/handoff-distill-from-chat-export.md` | 中转窗口基于完整旧聊天记录生成新的 `handoff-current.md` 和 `handoff-evidence.md`；可同步更新 TodoList。 | `skills/04b-handoff-distillation.md` |
-| `templates/handoff-evidence-pack.md` | `handoff-evidence.md` 的结构模板；整理完整可迁移证据、原始材料定位卡、图片证据卡、未完整携带证据和待复核缺口。 | `skills/04-handoff-regular.md` / `skills/04b-handoff-distillation.md` |
+| `templates/handoff-distill-from-chat-export.md` | 中转窗口基于完整旧聊天记录生成新的 `handoff-current.md` 和 `handoff-evidence.md`；已启用 `todolist.md` 时同步更新 TodoList。 | `skills/04b-handoff-distillation.md` |
+| `templates/handoff-evidence-pack.md` | `handoff-evidence.md` 的完整证据结构模板，用于迁移原始证据、截图证据、补证缺口和证据引用。 | `skills/04-handoff-regular.md` / `skills/04b-handoff-distillation.md` |
 | `templates/new-window-read-handoff-file.md` | 新工作窗口读取上传的 handoff 交接材料，支持 zip 交接包、单独 md 文件、可选 TodoList 与证据补充材料。 | 无需读取生成类 Skill。 |
 | `templates/new-window-read-handoff-clipboard.md` | 新工作窗口读取粘贴的 `handoff-current.md`、可选 `handoff-evidence.md` 和可选 `todolist.md`。 | 无需读取生成类 Skill。 |
-| `templates/html-prototype-generator-trigger.md` | 手动触发 HTML 低保真原型生成 Skill；只输出实际原型预览入口，不生成压缩包，不套固定项目文件名。 | `skills/08-html-prototype-generator.md` |
 
 ## 新增 Skill 时的索引更新要求
 
