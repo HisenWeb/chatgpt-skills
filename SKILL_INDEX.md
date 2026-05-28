@@ -118,28 +118,28 @@ node scripts/doctor.mjs
 
 - 路径：`skills/08-mvp-scope-confirmation.md`
 - 名称：MVP 业务范围说明
-- 适用场景：需求讨论、头脑风暴、旧窗口交接或业务草稿之后，准备生成原型前，需要把业务场景、用户流程、页面含义、关键状态、业务规则和待确认问题整理成可原型化输入。
+- 适用场景：需求讨论、头脑风暴、旧窗口交接或业务草稿之后，准备生成原型前，需要把业务场景、用户流程、页面含义、关键状态、业务规则和待确认问题整理成可原型化输入；用户确认业务范围草案后生成 `mvp-business-scope.md`。
 - 不适用场景：还在完全自由探索方向；已经有清晰页面规格只需生成原型；正在修已有原型；原型已最终确认只需业务说明交付；Skill 仓库维护。
 - 推荐模板：无固定模板。
-- 关系：原型前业务收敛 Skill；不生成 HTML；输出可进入 `skills/09-html-prototype-generator.md` 的业务输入；不替代总控、开发计划或后续实现判断。
+- 关系：原型前业务收敛 Skill；不生成 HTML；用户确认后输出 `mvp-business-scope.md`，作为 `skills/09-html-prototype-generator.md` 的业务范围源；不替代总控、开发计划或后续实现判断。
 
 ### 09-html-prototype-generator.md
 
 - 路径：`skills/09-html-prototype-generator.md`
 - 名称：HTML 原型生成
-- 适用场景：根据已收敛业务材料、页面规格、handoff、scope、brief 或 PRD 生成可本地预览的 HTML/CSS/JS 原型；包括页面板模式和可点击原型模式；也适用于已有 HTML 原型的最小改动修正。
-- 不适用场景：业务范围尚未收敛；只是产品方向讨论；只是要图片参考图；原型冻结后的业务说明交付；生产级前端工程、组件库或后端系统开发；Skill 仓库维护。
+- 适用场景：根据已确认业务范围、页面规格、handoff、scope、brief 或 PRD 生成可本地预览的 HTML/CSS/JS 原型；包括页面板模式和可点击原型模式；也适用于已有 HTML 原型的最小改动修正；用户确认最终原型后生成 `prototype-delivery.md` 和 `prototype/`。
+- 不适用场景：业务范围尚未收敛；只是产品方向讨论；只是要图片参考图；已有 `mvp-business-scope.md`、`prototype-delivery.md` 和最终 `prototype/` 且只需冻结评审与最终打包；生产级前端工程、组件库或后端系统开发；Skill 仓库维护。
 - 推荐模板：无固定模板。
-- 关系：原型生成专用 Skill；承接 `skills/08-mvp-scope-confirmation.md` 的业务输入；生成后的最终原型可进入 `skills/10-prototype-freeze-business-brief.md`；不绑定具体项目文件名、目录名、执行工具或开发流程。
+- 关系：原型生成专用 Skill；承接 `skills/08-mvp-scope-confirmation.md` 生成的 `mvp-business-scope.md` 或等价业务输入；用户确认最终原型后输出 `prototype-delivery.md` 和 `prototype/`，作为 `skills/10-prototype-freeze-gate.md` 的冻结评审输入；不绑定具体项目文件名、目录名、执行工具或开发流程。
 
-### 10-prototype-freeze-business-brief.md
+### 10-prototype-freeze-gate.md
 
-- 路径：`skills/10-prototype-freeze-business-brief.md`
-- 名称：原型冻结与业务说明交付
-- 适用场景：页面板或可点击原型已基本确认，用户希望停止原型阶段修改，固定拆分生成业务说明文档集和最终原型文件，让后续阅读者理解业务和原型。
-- 不适用场景：业务范围还不清；页面结构、状态归属、主流程或点击关系还没确认；用户只是继续修原型；用户要求写代码、技术方案、开发计划、组件拆分、API 设计或执行端流程。
+- 路径：`skills/10-prototype-freeze-gate.md`
+- 名称：原型冻结 Gate
+- 适用场景：已经有 `mvp-business-scope.md`、`prototype-delivery.md` 和最终 `prototype/`，用户希望做原型冻结评审、检查 08 业务范围与 09 原型事实是否一致，并在用户确认冻结后生成最终交付包。
+- 不适用场景：缺少 `mvp-business-scope.md`；缺少 `prototype-delivery.md` 或最终 `prototype/`；用户仍在讨论业务范围、页面含义、状态归属、路由表或原型细节；用户要求生成或修改 HTML 原型；用户要求写代码、技术方案、开发计划、API、数据库、文件映射或执行端流程。
 - 推荐模板：无固定模板。
-- 关系：原型后的业务说明交付 Skill；只交业务和原型，不制定开发方案；不绑定任何具体执行工具、规格框架或 agent 工作流。
+- 关系：原型冻结评审与最终打包 Skill；读取 `mvp-business-scope.md`、`prototype-delivery.md` 和 `prototype/`，只检查材料齐全性、一致性、阻塞问题和噪音材料；通过且用户确认冻结后输出 `prototype-freeze-delivery.zip`；不生成新的业务说明文档，不制定开发方案，不绑定任何具体执行工具、规格框架或 agent 工作流。
 
 ## Template 列表
 

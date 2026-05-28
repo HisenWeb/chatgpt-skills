@@ -49,7 +49,7 @@ https://github.com/HisenWeb/chatgpt-skills
 │  ├─ 04b-handoff-distillation.md
 │  ├─ 08-mvp-scope-confirmation.md
 │  ├─ 09-html-prototype-generator.md
-│  └─ 10-prototype-freeze-business-brief.md
+│  └─ 10-prototype-freeze-gate.md
 ├─ templates/
 │  ├─ skill-authoring-request.md
 │  ├─ skill-trigger-prompt-generate.md
@@ -76,9 +76,9 @@ https://github.com/HisenWeb/chatgpt-skills
 | `skills/04-handoff-regular.md` | 常规新窗口交接与 Handoff | 当前窗口可靠时生成 `handoff-current.md` 和 `handoff-evidence.md`；必要时同步已有 TodoList。 |
 | `skills/04a-goal-todolist.md` | 极简主线 TodoList 初始化 | 持续任务进入主线推进后，用 checkbox 清单初始化或校正 `todolist.md`，不扩展成复杂项目管理结构。 |
 | `skills/04b-handoff-distillation.md` | 中转窗口去毒蒸馏与 Handoff | 基于旧窗口材料生成干净的 `handoff-current.md` 和 `handoff-evidence.md`；必要时同步 TodoList。 |
-| `skills/08-mvp-scope-confirmation.md` | MVP 业务范围说明 | 需求讨论后、生成原型前，把业务材料整理成页面和流程可理解的 MVP 业务范围说明。 |
-| `skills/09-html-prototype-generator.md` | HTML 原型生成 | 根据已收敛业务材料生成可本地预览的 HTML/CSS/JS 原型；内含页面板模式和可点击原型模式。 |
-| `skills/10-prototype-freeze-business-brief.md` | 原型冻结与业务说明交付 | 原型阶段结束后，固定拆分生成业务说明文档集与最终原型文件；只交业务和原型，不制定开发方案。 |
+| `skills/08-mvp-scope-confirmation.md` | MVP 业务范围说明 | 需求讨论后、生成原型前，把业务材料整理成页面和流程可理解的 MVP 业务范围说明；用户确认后输出 `mvp-business-scope.md`。 |
+| `skills/09-html-prototype-generator.md` | HTML 原型生成 | 根据已确认业务范围生成可本地预览的 HTML/CSS/JS 原型；内含页面板模式和可点击原型模式；用户确认最终原型后输出 `prototype-delivery.md` 和 `prototype/`。 |
+| `skills/10-prototype-freeze-gate.md` | 原型冻结 Gate | 基于 `mvp-business-scope.md`、`prototype-delivery.md` 和 `prototype/` 做冻结评审；通过且用户确认冻结后输出 `prototype-freeze-delivery.zip`，不再生成新业务文档或开发方案。 |
 
 详细触发条件、禁区和输出规则以各 Skill 正文为准；README 只保留概览。
 

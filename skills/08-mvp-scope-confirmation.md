@@ -1,6 +1,6 @@
 ---
 name: MVP 业务范围说明
-version: 0.2.0
+version: 0.3.0
 status: active
 last_updated: 2026-05-29
 scope: 需求讨论后进入原型前的业务范围收敛 / 原型覆盖场景说明 / 页面与流程语义整理 / 业务规则与待确认问题提炼
@@ -48,6 +48,20 @@ MVP 业务范围说明
 这份说明只记录业务和原型相关事实：业务场景、用户流程、页面含义、关键状态、业务规则和仍需确认的问题。
 
 ## 工作原则
+
+### 0. 正式文档必须在用户确认后生成
+
+本 Skill 不应一启用就直接生成正式交付文件。
+
+流程必须是：
+
+```text
+先输出 MVP 业务范围草案 / 确认卡
+→ 用户明确确认或修正
+→ 才生成 mvp-business-scope.md
+```
+
+未确认前只能输出草案、确认卡、待确认问题或下一步建议；不能把内容固化成 `mvp-business-scope.md`。
 
 ### 1. 先判断是否已经聊到可收口
 
@@ -124,12 +138,14 @@ MVP 业务范围说明
 
 ## 输出要求
 
-### 1. 默认输出 MVP 业务范围说明
+### 1. 未确认前：输出 MVP 业务范围草案 / 确认卡
+
+未得到用户明确确认前，只输出草案，不生成正式文件。
 
 推荐结构：
 
 ```text
-MVP 业务范围说明
+MVP 业务范围草案
 
 1. 原型表达的业务场景
 - ...
@@ -162,25 +178,41 @@ MVP 业务范围说明
 - 进入 HTML 原型生成的页面板模式 / 进入 HTML 原型生成的可点击模式 / 继续补业务信息
 ```
 
-### 2. 输出必须给出下一步判定
+### 2. 下一步判定
 
-结尾给出一个简短判定：
+草案结尾给出一个简短判定：
 
-- `READY_FOR_PAGE_BOARD`：业务页面和状态足够清楚，可以进入低保真页面板；
-- `READY_FOR_CLICKABLE_PROTOTYPE`：业务流程和关键交互足够清楚，可以进入可点击原型；
+- `READY_FOR_PAGE_BOARD`：业务页面和状态足够清楚，可以进入 HTML 原型生成的页面板模式；
+- `READY_FOR_CLICKABLE_PROTOTYPE`：业务流程和关键交互足够清楚，可以进入 HTML 原型生成的可点击模式；
 - `NEEDS_BUSINESS_CLARIFICATION`：仍缺少会影响原型表达的业务信息；
 - `TOO_BROAD_FOR_PROTOTYPE_BRIEF`：材料太散，需要继续压缩业务场景；
 - `NOT_A_PROTOTYPE_TASK`：当前不是原型前业务范围说明任务。
 
-### 3. 需要生成文件时输出轻量 Markdown
+### 3. 用户确认后：生成正式文件 `mvp-business-scope.md`
 
-如果用户要求文件，或内容较长，可生成：
+只有用户明确确认业务范围草案后，才生成正式文件：
 
 ```text
 mvp-business-scope.md
 ```
 
-文件只记录业务和原型相关内容，不记录无后续价值的讨论过程、工具选择或执行端流程。
+正式文件使用以下结构：
+
+```text
+# MVP Business Scope
+
+## 1. 原型表达的业务场景
+## 2. 用户场景
+## 3. 核心业务流程
+## 4. 页面草案
+## 5. 页面状态草案
+## 6. 关键业务规则
+## 7. 术语与数据含义
+## 8. 待确认业务问题
+## 9. 下一步建议
+```
+
+`mvp-business-scope.md` 是后续 `09-html-prototype-generator.md` 和 `10-prototype-freeze-gate.md` 的业务范围源。
 
 ### 4. 与后续 Skill 的衔接
 
@@ -188,7 +220,7 @@ mvp-business-scope.md
 
 - 需要审页面结构、信息密度、页面状态归属：进入 `skills/09-html-prototype-generator.md` 的页面板模式；
 - 需要验证业务流程、按钮结果和页面流转：进入 `skills/09-html-prototype-generator.md` 的可点击原型模式；
-- 已有最终原型，需要整理业务说明和原型入口：进入 `skills/10-prototype-freeze-business-brief.md`。
+- 已有 `mvp-business-scope.md`、`prototype-delivery.md` 和最终 `prototype/`，需要冻结评审与打包：进入 `skills/10-prototype-freeze-gate.md`。
 
 不要在本 Skill 中直接生成 HTML 原型或面向执行端的开发说明。
 
